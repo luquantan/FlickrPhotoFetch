@@ -15,6 +15,10 @@
 		09035F5C1A2A6164002021AE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09035F5A1A2A6164002021AE /* LaunchScreen.xib */; };
 		09035F681A2A6164002021AE /* FlickrPhotoFetchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 09035F671A2A6164002021AE /* FlickrPhotoFetchTests.m */; };
 		09035F751A2A61B3002021AE /* FlickrFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 09035F741A2A61B3002021AE /* FlickrFetcher.m */; };
+		D9F5D6941A2CADE20076A7FF /* FlickrWebService.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F5D6931A2CADE20076A7FF /* FlickrWebService.m */; };
+		D9F5D6971A2CAF830076A7FF /* ImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F5D6951A2CAF830076A7FF /* ImageViewController.m */; };
+		D9F5D69A1A2CAFA50076A7FF /* UIImage+Sizing.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F5D6991A2CAFA50076A7FF /* UIImage+Sizing.m */; };
+		D9F5D69D1A2CBD290076A7FF /* TopPlacesTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F5D69C1A2CBD290076A7FF /* TopPlacesTVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +48,14 @@
 		09035F721A2A61B3002021AE /* FlickrAPIKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrAPIKey.h; sourceTree = "<group>"; };
 		09035F731A2A61B3002021AE /* FlickrFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrFetcher.h; sourceTree = "<group>"; };
 		09035F741A2A61B3002021AE /* FlickrFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrFetcher.m; sourceTree = "<group>"; };
+		D9F5D6921A2CADE20076A7FF /* FlickrWebService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrWebService.h; sourceTree = "<group>"; };
+		D9F5D6931A2CADE20076A7FF /* FlickrWebService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrWebService.m; sourceTree = "<group>"; };
+		D9F5D6951A2CAF830076A7FF /* ImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageViewController.m; sourceTree = "<group>"; };
+		D9F5D6961A2CAF830076A7FF /* ImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageViewController.h; sourceTree = "<group>"; };
+		D9F5D6981A2CAFA50076A7FF /* UIImage+Sizing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Sizing.h"; sourceTree = "<group>"; };
+		D9F5D6991A2CAFA50076A7FF /* UIImage+Sizing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Sizing.m"; sourceTree = "<group>"; };
+		D9F5D69B1A2CBD290076A7FF /* TopPlacesTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopPlacesTVC.h; sourceTree = "<group>"; };
+		D9F5D69C1A2CBD290076A7FF /* TopPlacesTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopPlacesTVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +79,8 @@
 		09035F3F1A2A6164002021AE = {
 			isa = PBXGroup;
 			children = (
+				D9F5D69E1A2CBD330076A7FF /* TableViewControllers */,
+				D9F5D69F1A2CBD4B0076A7FF /* ImageViewController */,
 				09035F711A2A61B3002021AE /* Flickr Fetcher */,
 				09035F4A1A2A6164002021AE /* FlickrPhotoFetch */,
 				09035F641A2A6164002021AE /* FlickrPhotoFetchTests */,
@@ -86,8 +100,6 @@
 		09035F4A1A2A6164002021AE /* FlickrPhotoFetch */ = {
 			isa = PBXGroup;
 			children = (
-				09035F4F1A2A6164002021AE /* AppDelegate.h */,
-				09035F501A2A6164002021AE /* AppDelegate.m */,
 				09035F521A2A6164002021AE /* ViewController.h */,
 				09035F531A2A6164002021AE /* ViewController.m */,
 				09035F551A2A6164002021AE /* Main.storyboard */,
@@ -101,6 +113,8 @@
 		09035F4B1A2A6164002021AE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				09035F4F1A2A6164002021AE /* AppDelegate.h */,
+				09035F501A2A6164002021AE /* AppDelegate.m */,
 				09035F4C1A2A6164002021AE /* Info.plist */,
 				09035F4D1A2A6164002021AE /* main.m */,
 			);
@@ -130,8 +144,31 @@
 				09035F721A2A61B3002021AE /* FlickrAPIKey.h */,
 				09035F731A2A61B3002021AE /* FlickrFetcher.h */,
 				09035F741A2A61B3002021AE /* FlickrFetcher.m */,
+				D9F5D6921A2CADE20076A7FF /* FlickrWebService.h */,
+				D9F5D6931A2CADE20076A7FF /* FlickrWebService.m */,
 			);
 			path = "Flickr Fetcher";
+			sourceTree = "<group>";
+		};
+		D9F5D69E1A2CBD330076A7FF /* TableViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				D9F5D69B1A2CBD290076A7FF /* TopPlacesTVC.h */,
+				D9F5D69C1A2CBD290076A7FF /* TopPlacesTVC.m */,
+			);
+			name = TableViewControllers;
+			path = FlickrPhotoFetch;
+			sourceTree = "<group>";
+		};
+		D9F5D69F1A2CBD4B0076A7FF /* ImageViewController */ = {
+			isa = PBXGroup;
+			children = (
+				D9F5D6961A2CAF830076A7FF /* ImageViewController.h */,
+				D9F5D6951A2CAF830076A7FF /* ImageViewController.m */,
+				D9F5D6981A2CAFA50076A7FF /* UIImage+Sizing.h */,
+				D9F5D6991A2CAFA50076A7FF /* UIImage+Sizing.m */,
+			);
+			name = ImageViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -234,7 +271,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9F5D6971A2CAF830076A7FF /* ImageViewController.m in Sources */,
+				D9F5D69D1A2CBD290076A7FF /* TopPlacesTVC.m in Sources */,
+				D9F5D6941A2CADE20076A7FF /* FlickrWebService.m in Sources */,
 				09035F541A2A6164002021AE /* ViewController.m in Sources */,
+				D9F5D69A1A2CAFA50076A7FF /* UIImage+Sizing.m in Sources */,
 				09035F511A2A6164002021AE /* AppDelegate.m in Sources */,
 				09035F751A2A61B3002021AE /* FlickrFetcher.m in Sources */,
 				09035F4E1A2A6164002021AE /* main.m in Sources */,
@@ -362,6 +403,7 @@
 				INFOPLIST_FILE = FlickrPhotoFetch/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -372,6 +414,7 @@
 				INFOPLIST_FILE = FlickrPhotoFetch/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -428,6 +471,7 @@
 				09035F6D1A2A6164002021AE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		09035F6E1A2A6164002021AE /* Build configuration list for PBXNativeTarget "FlickrPhotoFetchTests" */ = {
 			isa = XCConfigurationList;
@@ -436,6 +480,7 @@
 				09035F701A2A6164002021AE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

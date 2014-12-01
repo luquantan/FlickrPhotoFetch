@@ -7,6 +7,8 @@
 //
 
 #import "ViewController.h"
+#import "FlickrFetcher.h"
+#import "FlickrWebService.h"
 
 @interface ViewController ()
 
@@ -17,6 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    [FlickrWebService gettingInfoFromFlickrFormat];
 }
 
 - (void)didReceiveMemoryWarning {
