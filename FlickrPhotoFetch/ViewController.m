@@ -19,7 +19,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    [FlickrWebService gettingInfoFromFlickrFormat];
+//    [FlickrWebService gettingInfoFromFlickrFormat];
+
 }
 
 - (void)didReceiveMemoryWarning {

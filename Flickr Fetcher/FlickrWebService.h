@@ -11,7 +11,8 @@
 
 @interface FlickrWebService : NSObject
 
-+ (void)getImageWithQuery:(NSURL *)url withBackgroundCompletion:(void(^)(UIImage *image, NSError *error))completionBlock;
-+ (void)gettingInfoFromFlickrFormat;
+//+ (void)getImageWithQuery:(NSURL *)url withBackgroundCompletion:(void(^)(UIImage *image, NSError *error))completionBlock;
++ (void)getDataFromQuery:(NSURL *)url WithBackgroundCompletion:(void(^)(NSDictionary *))completionBlock;
 
++(void)getTopPlacesInBackgroundWithCompletion:(void(^)(NSArray *results, NSError *error))completion;
 @end

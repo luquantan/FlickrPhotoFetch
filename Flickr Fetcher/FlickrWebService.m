@@ -8,35 +8,68 @@
 
 #import "FlickrWebService.h"
 #import "FlickrFetcher.h"
+#import "LQFlickrPlace.h"
 
 @implementation FlickrWebService
 
-+ (void)getImageWithQuery:(NSURL *)url withBackgroundCompletion:(void (^)(UIImage *, NSError *))completionBlock
+//+ (void)getImageWithQuery:(NSURL *)url withBackgroundCompletion:(void (^)(UIImage *, NSError *))completionBlock
+//{
+//    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+//    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration ephemeralSessionConfiguration];
+//    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
+//    NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
+//        UIImage *image;
+//        if (!error) {
+//            image = [UIImage imageWithData:[NSData dataWithContentsOfURL:location]];
+//        }
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            if (completionBlock) completionBlock(image, error);
+//        });
+//    }];
+//    [task resume];
+//}
+
++ (void)getDataFromQuery:(NSURL *)url WithBackgroundCompletion:(void(^)(NSDictionary *dictionary))completionBlock
 {
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration ephemeralSessionConfiguration];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
     NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
-        UIImage *image;
         if (!error) {
-            image = [UIImage imageWithData:[NSData dataWithContentsOfURL:location]];
+            NSData *jsonResults = [NSData dataWithContentsOfURL:location];
+            NSDictionary *propertyListResult = [NSJSONSerialization JSONObjectWithData:jsonResults options:0 error:NULL];
+            if (completionBlock) completionBlock(propertyListResult);
         }
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (completionBlock) completionBlock(image, error);
-        });
     }];
     [task resume];
 }
 
-+ (void)gettingInfoFromFlickrFormat
++(void)getTopPlacesInBackgroundWithCompletion:(void(^)(NSArray *results, NSError *error))completion
 {
-    NSURL *url = [FlickrFetcher URLforTopPlaces]; //Need to tailor this to allow for user to query anything
-#warning Blocks Main Thread
-    NSData *jsonResults = [NSData dataWithContentsOfURL:url];
-    NSLog(@"JSON = %@", jsonResults);
-    NSDictionary *propertyListResults = [NSJSONSerialization JSONObjectWithData:jsonResults
-                                                                        options:0
-                                                                          error:NULL];
-    NSLog(@"flickr results = %@",propertyListResults);
+    [FlickrWebService getDataFromQuery:[FlickrFetcher URLforTopPlaces] WithBackgroundCompletion:^(NSDictionary *dictionary) { //this will not run
+        if (dictionary) {
+            // TODO: Make Constants
+            NSArray *topPlacesRaw = [dictionary valueForKeyPath:FLICKR_RESULTS_PLACES];
+            NSMutableArray *returnArray = [NSMutableArray array];
+            for (NSDictionary *topPlaceDict in topPlacesRaw) {
+                LQFlickrPlace *topPlace = [[LQFlickrPlace alloc] initWithDictionary:topPlaceDict];
+                [returnArray addObject:topPlace];
+            }
+            
+            NSArray *countries = [returnArray valueForKey:@"country"];
+            NSSet *allCountries = [NSSet setWithArray:countries];
+            
+            NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"country" ascending:YES];
+            NSArray *filteredResults = [returnArray sortedArrayUsingDescriptors:@[sortDescriptor]];
+
+            
+            
+            completion(returnArray, nil);
+        } else {
+        // TODO: Define Error
+            completion(nil, [NSError errorWithDomain:@"LuQuan.Domain" code:1 userInfo:nil]);
+        }
+    }];
 }
+
 @end

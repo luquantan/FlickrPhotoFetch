@@ -32,7 +32,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="kdG-Ak-6vZ" detailTextLabel="UYf-E8-xEj" style="IBUITableViewCellStyleSubtitle" id="Z9V-Yx-ecx">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="TopPlacesTableVewCell" textLabel="kdG-Ak-6vZ" detailTextLabel="UYf-E8-xEj" style="IBUITableViewCellStyleSubtitle" id="Z9V-Yx-ecx">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Z9V-Yx-ecx" id="4G8-zJ-TLB">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -53,6 +53,7 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
+                        <sections/>
                         <connections>
                             <outlet property="dataSource" destination="BzL-m0-OLd" id="Xew-XY-gTU"/>
                             <outlet property="delegate" destination="BzL-m0-OLd" id="mbP-jU-eSj"/>
@@ -62,10 +63,13 @@
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="rVG-oT-982">
                         <autoresizingMask key="autoresizingMask"/>
                     </refreshControl>
+                    <connections>
+                        <outlet property="refreshControl" destination="rVG-oT-982" id="mcv-Xz-Pbx"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yGs-Fb-fy0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="121" y="174"/>
+            <point key="canvasLocation" x="120" y="179"/>
         </scene>
         <!--Image View Controller-->
         <scene sceneID="wvT-1J-xIt">
