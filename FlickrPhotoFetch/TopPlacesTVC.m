@@ -7,50 +7,69 @@
 //
 
 #import "TopPlacesTVC.h"
+#import "LQFlickrPlace.h"
+
 #import "TopPlacesModel.h"
 #import "FlickrWebService.h"
+
 @interface TopPlacesTVC ()
-@property (weak, nonatomic) IBOutlet UIRefreshControl *refreshControl;
-@property (nonatomic, strong) TopPlacesModel *model;
+@property (nonatomic, strong) NSArray *topPlaces;
+@property (nonatomic, strong) NSSet *uniqueCountries;
+@property (nonatomic) NSInteger numberOfUniqueCountries;
 @end
 
 @implementation TopPlacesTVC
-- (TopPlacesModel *)model
-{
-    if (!_model) {
-        _model = [[TopPlacesModel alloc] init];
-    }
-    return _model;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [FlickrWebService getTopPlacesInBackgroundWithCompletion:^(NSArray *results, NSError *error) {
-        //
-        NSLog(@"RETURN ARRAY SENT HERE");
-    }];
+    [self addRefreshControl];
+    [self updateTopPlaces];
+
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
-    
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)updateTopPlaces
+{
+    [FlickrWebService getTopPlacesInBackgroundWithCompletion:^(NSArray *results, NSError *error) {
+        self.topPlaces = results; NSLog(@"Top Places updated");
+        [self.refreshControl endRefreshing]; NSLog(@"end refresh");
+        
+        if (error) {
+            NSLog(@"%@", error);
+        }
+    }];
+}
+
+- (void)setTopPlaces:(NSArray *)topPlaces
+{
+    _topPlaces = topPlaces;
+    [self countriesInTopPlaces];
+}
+
+#pragma mark - RefreshControl
+- (void)addRefreshControl
+{
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(refreshControlPulledDown:) forControlEvents:UIControlEventValueChanged];
+    self.refreshControl = refreshControl;
+}
+
+- (void)refreshControlPulledDown:(UIRefreshControl *)sender
+{
+    [self updateTopPlaces];
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return [self.model numberOfCountriesInTopPlaces];
+    return self.numberOfUniqueCountries;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete method implementation.
+    //Incomplete method implementation.
     // Return the number of rows in the section.
     return 1;
 }
@@ -64,6 +83,15 @@
     
     return cell;
 }
+
+#pragma mark - Helper Methods
+- (void)countriesInTopPlaces
+{
+    NSArray *countries = [self.topPlaces valueForKey:LQFlickrPlaceCountryPropertyKey];
+    self.uniqueCountries = [NSSet setWithArray:countries];
+    self.numberOfUniqueCountries = [self.uniqueCountries count];
+}
+
 
 
 /*

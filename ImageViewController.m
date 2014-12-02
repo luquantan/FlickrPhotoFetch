@@ -47,10 +47,12 @@
 {
     _imageName = imageName;
     [self.activityIndicator startAnimating];
-    [FlickrWebService getImageWithQuery:self.imageURL withBackgroundCompletion:^(UIImage *image, NSError *error) {
-        self.image = image;
-        [self.activityIndicator stopAnimating];
-    }];
+    
+//This should be some kind of call to flickr to get a photo. ImageViewController implementation is not done.
+//    [FlickrWebService getImageWithQuery:self.imageURL withBackgroundCompletion:^(UIImage *image, NSError *error) {
+//        self.image = image;
+//        [self.activityIndicator stopAnimating];
+//    }];
 }
 
 - (UIImage *)image

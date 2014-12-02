@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+static NSString * const LQFlickrPlaceCountryPropertyKey = @"country";
+
 @interface LQFlickrPlace : NSObject
 
 @property (nonatomic, copy) NSString *province;

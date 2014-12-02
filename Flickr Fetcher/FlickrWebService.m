@@ -12,7 +12,7 @@
 
 @implementation FlickrWebService
 
-static NSString * const LQFlickrPlaceCountryPropertyKey = @"country";
+
 
 //+ (void)getImageWithQuery:(NSURL *)url withBackgroundCompletion:(void (^)(UIImage *, NSError *))completionBlock
 //{
