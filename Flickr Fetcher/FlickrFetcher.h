@@ -23,6 +23,7 @@
 // keys (paths) to values in a places dictionary (from TopPlaces)
 #define FLICKR_PLACE_NAME @"_content"
 #define FLICKR_PLACE_ID @"place_id"
+#define FLICKR_PLACE_WOEID @"woeid"
 
 // keys applicable to all types of Flickr dictionaries
 #define FLICKR_LATITUDE @"latitude"

@@ -12,6 +12,8 @@
 
 @implementation FlickrWebService
 
+static NSString * const LQFlickrPlaceCountryPropertyKey = @"country";
+
 //+ (void)getImageWithQuery:(NSURL *)url withBackgroundCompletion:(void (^)(UIImage *, NSError *))completionBlock
 //{
 //    NSURLRequest *request = [NSURLRequest requestWithURL:url];
@@ -29,45 +31,42 @@
 //    [task resume];
 //}
 
-+ (void)getDataFromQuery:(NSURL *)url WithBackgroundCompletion:(void(^)(NSDictionary *dictionary))completionBlock
++ (void)getDataFromQuery:(NSURL *)url withBackgroundCompletion:(void(^)(NSDictionary *dictionary, NSError *error))completionBlock
 {
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration ephemeralSessionConfiguration];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
     NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
-        if (!error) {
+       
             NSData *jsonResults = [NSData dataWithContentsOfURL:location];
             NSDictionary *propertyListResult = [NSJSONSerialization JSONObjectWithData:jsonResults options:0 error:NULL];
-            if (completionBlock) completionBlock(propertyListResult);
-        }
+        
+            if (completionBlock) completionBlock(propertyListResult, error);
+        
     }];
     [task resume];
 }
 
-+(void)getTopPlacesInBackgroundWithCompletion:(void(^)(NSArray *results, NSError *error))completion
++ (void)getTopPlacesInBackgroundWithCompletion:(void(^)(NSArray *results, NSError *error))completion
 {
-    [FlickrWebService getDataFromQuery:[FlickrFetcher URLforTopPlaces] WithBackgroundCompletion:^(NSDictionary *dictionary) { //this will not run
+    [FlickrWebService getDataFromQuery:[FlickrFetcher URLforTopPlaces] withBackgroundCompletion:^(NSDictionary *dictionary, NSError *error) {
         if (dictionary) {
-            // TODO: Make Constants
+
             NSArray *topPlacesRaw = [dictionary valueForKeyPath:FLICKR_RESULTS_PLACES];
             NSMutableArray *returnArray = [NSMutableArray array];
             for (NSDictionary *topPlaceDict in topPlacesRaw) {
                 LQFlickrPlace *topPlace = [[LQFlickrPlace alloc] initWithDictionary:topPlaceDict];
                 [returnArray addObject:topPlace];
             }
-            
-            NSArray *countries = [returnArray valueForKey:@"country"];
-            NSSet *allCountries = [NSSet setWithArray:countries];
-            
-            NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"country" ascending:YES];
+//            NSArray *countries = [returnArray valueForKey:LQFlickrPlaceCountryPropertyKey];
+//            NSSet *allCountries = [NSSet setWithArray:countries];
+            NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:LQFlickrPlaceCountryPropertyKey ascending:YES];
             NSArray *filteredResults = [returnArray sortedArrayUsingDescriptors:@[sortDescriptor]];
 
             
-            
-            completion(returnArray, nil);
+            if (completion) completion(filteredResults, nil);
         } else {
-        // TODO: Define Error
-            completion(nil, [NSError errorWithDomain:@"LuQuan.Domain" code:1 userInfo:nil]);
+            if (completion) completion(nil, error);
         }
     }];
 }

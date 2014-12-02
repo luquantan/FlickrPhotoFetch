@@ -21,7 +21,7 @@
 - (NSDictionary *)topPlaces
 {
     if (!_topPlaces) {
-        [FlickrWebService getDataFromQuery:[FlickrFetcher URLforTopPlaces] WithBackgroundCompletion:^(NSDictionary *dictionary) { //this will not run
+        [FlickrWebService getDataFromQuery:[FlickrFetcher URLforTopPlaces] WithBackgroundCompletion:^(NSDictionary *dictionary, NSError *error) { 
             if (dictionary) {
                 _topPlaces = [[NSDictionary alloc] initWithDictionary:dictionary];
             }
