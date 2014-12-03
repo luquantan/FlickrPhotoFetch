@@ -8,25 +8,9 @@
 
 #import "TopPlacesTVC.h"
 #import "LQFlickrPlace.h"
+#import "LQTopPlacesTableViewSection.h"
 
-#import "TopPlacesModel.h"
 #import "FlickrWebService.h"
-
-@interface LQTopPlacesTableViewSection : NSObject
-@property (strong, nonatomic) NSString *countryName;
-@property (strong, nonatomic) NSMutableArray *associatedPlaces;
-@end
-@implementation LQTopPlacesTableViewSection
-- (NSMutableArray *)associatedPlaces
-{
-    if (!_associatedPlaces) {
-        _associatedPlaces = [NSMutableArray array];
-    }
-    return _associatedPlaces;
-}
-@end
-
-//////////
 
 @interface TopPlacesTVC ()
 @property (nonatomic, strong) NSArray *topPlacesSections;
