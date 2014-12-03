@@ -10,7 +10,7 @@
 
 static NSString * const LQFlickrPlaceCountryPropertyKey = @"country";
 
-@interface LQFlickrPlace : NSObject
+@interface LQTopPlaceModel : NSObject
 
 @property (nonatomic, copy) NSString *province;
 @property (nonatomic, copy) NSString *state;

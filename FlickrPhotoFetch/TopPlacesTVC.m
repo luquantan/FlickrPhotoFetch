@@ -7,7 +7,7 @@
 //
 
 #import "TopPlacesTVC.h"
-#import "LQFlickrPlace.h"
+#import "LQTopPlaceModel.h"
 #import "LQTopPlacesTableViewSection.h"
 
 #import "FlickrWebService.h"
@@ -31,26 +31,12 @@
 - (void)updateTopPlaces
 {
     [FlickrWebService getTopPlacesInBackgroundWithCompletion:^(NSArray *results, NSError *error) {
-//        if (results.count > 0) [self setupTableViewSectionsWithRawTopPlaces:results];
-                if (results.count > 0) [self setupTableViewSectionsWithSortedTopPlaces:results];
+        if (results.count > 0) [self setupTableViewSectionsWithRawTopPlaces:results];
         [self.refreshControl endRefreshing]; NSLog(@"end refresh");
         if (error) {
             NSLog(@"%@", error);
         }
     }];
-}
-
-#pragma mark - RefreshControl
-- (void)addRefreshControl
-{
-    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-    [refreshControl addTarget:self action:@selector(refreshControlPulledDown:) forControlEvents:UIControlEventValueChanged];
-    self.refreshControl = refreshControl;
-}
-
-- (void)refreshControlPulledDown:(UIRefreshControl *)sender
-{
-    [self updateTopPlaces];
 }
 
 #pragma mark - Table view data source
@@ -70,7 +56,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TopPlacesTVC Cell" forIndexPath:indexPath];
  
     LQTopPlacesTableViewSection *section = self.topPlacesSections[indexPath.section];
-    LQFlickrPlace *place = section.associatedPlaces[indexPath.row];
+    LQTopPlaceModel *place = section.associatedPlaces[indexPath.row];
     cell.textLabel.text = [NSString stringWithFormat:@"%@, %@", place.province, place.state];
     return cell;
 }
@@ -86,7 +72,7 @@
 - (void)setupTableViewSectionsWithRawTopPlaces:(NSArray *)rawTopPlaces
 {
     NSMutableDictionary *sectionsDict = [NSMutableDictionary dictionary];
-    for (LQFlickrPlace *place in rawTopPlaces) {
+    for (LQTopPlaceModel *place in rawTopPlaces) {
         LQTopPlacesTableViewSection *section = sectionsDict[place.country];
         if (!section) {
             section = [LQTopPlacesTableViewSection new];
@@ -100,41 +86,35 @@
     self.topPlacesSections = [[sectionsDict allValues] sortedArrayUsingDescriptors:@[sortDescriptor]];
 
     [self.tableView reloadData];
+    
 //    NSArray *countries = [self.topPlaces valueForKey:LQFlickrPlaceCountryPropertyKey];
 //    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"" ascending:YES];
 //    NSSet *uniqueNames = [NSSet setWithArray:countries];
 //    self.uniqueCountries = [[uniqueNames allObjects] sortedArrayUsingDescriptors:@[sortDescriptor]];
 }
 
-- (void)setupTableViewSectionsWithSortedTopPlaces:(NSArray *)sortedTopPlaces
+#pragma mark - RefreshControl
+- (void)addRefreshControl
 {
-    NSMutableArray *topPlacesSections = [NSMutableArray array];
-    for (LQFlickrPlace *place in sortedTopPlaces) {
-        LQTopPlacesTableViewSection *section = [topPlacesSections lastObject];
-        if (!section) {
-            section = [LQTopPlacesTableViewSection new];
-            section.countryName = place.country;
-            [section.associatedPlaces addObject:place];
-            [topPlacesSections addObject:section];
-        } else if ([section.countryName isEqualToString:place.country]) {
-            [section.associatedPlaces addObject:place];
-        } else {
-            LQTopPlacesTableViewSection *newSection = [LQTopPlacesTableViewSection new];
-            newSection.countryName = place.country;
-            [newSection.associatedPlaces addObject:place];
-            [topPlacesSections addObject:newSection];
-        }
-    }
-    self.topPlacesSections = topPlacesSections;
-
-    [self.tableView reloadData];
-    //    NSArray *countries = [self.topPlaces valueForKey:LQFlickrPlaceCountryPropertyKey];
-    //    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"" ascending:YES];
-    //    NSSet *uniqueNames = [NSSet setWithArray:countries];
-    //    self.uniqueCountries = [[uniqueNames allObjects] sortedArrayUsingDescriptors:@[sortDescriptor]];
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(refreshControlPulledDown:) forControlEvents:UIControlEventValueChanged];
+    self.refreshControl = refreshControl;
 }
 
+- (void)refreshControlPulledDown:(UIRefreshControl *)sender
+{
+    [self updateTopPlaces];
+}
 
+#pragma mark - Note to myself
+/*
+ Could there be a way to combine LQFlickrPlace and LQTopPlacesTableViewSection into one class. 
+ That way once the webservice call goes through, the LQTopPlacesTableViewSection information should be updated.
+ All I need right now is contained inside LQTopPlacesTableViewSection. How do I make it better?
+*/
+
+
+#pragma mark - other tableview related methods
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -178,5 +158,36 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+#pragma mark - Extra Code
+
+//- (void)setupTableViewSectionsWithSortedTopPlaces:(NSArray *)sortedTopPlaces
+//{
+//    NSMutableArray *topPlacesSections = [NSMutableArray array];
+//    for (LQFlickrPlace *place in sortedTopPlaces) {
+//        LQTopPlacesTableViewSection *section = [topPlacesSections lastObject];
+//        if (!section) {
+//            section = [LQTopPlacesTableViewSection new];
+//            section.countryName = place.country;
+//            [section.associatedPlaces addObject:place];
+//            [topPlacesSections addObject:section];
+//        } else if ([section.countryName isEqualToString:place.country]) {
+//            [section.associatedPlaces addObject:place];
+//        } else {
+//            LQTopPlacesTableViewSection *newSection = [LQTopPlacesTableViewSection new];
+//            newSection.countryName = place.country;
+//            [newSection.associatedPlaces addObject:place];
+//            [topPlacesSections addObject:newSection];
+//        }
+//    }
+//    self.topPlacesSections = topPlacesSections;
+//
+//    [self.tableView reloadData];
+//    //    NSArray *countries = [self.topPlaces valueForKey:LQFlickrPlaceCountryPropertyKey];
+//    //    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"" ascending:YES];
+//    //    NSSet *uniqueNames = [NSSet setWithArray:countries];
+//    //    self.uniqueCountries = [[uniqueNames allObjects] sortedArrayUsingDescriptors:@[sortDescriptor]];
+//}
+
 
 @end

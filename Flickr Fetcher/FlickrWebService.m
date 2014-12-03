@@ -8,7 +8,7 @@
 
 #import "FlickrWebService.h"
 #import "FlickrFetcher.h"
-#import "LQFlickrPlace.h"
+#import "LQTopPlaceModel.h"
 
 @implementation FlickrWebService
 
@@ -55,16 +55,19 @@
             NSArray *topPlacesRaw = [dictionary valueForKeyPath:FLICKR_RESULTS_PLACES];
             NSMutableArray *returnArray = [NSMutableArray array];
             for (NSDictionary *topPlaceDict in topPlacesRaw) {
-                LQFlickrPlace *topPlace = [[LQFlickrPlace alloc] initWithDictionary:topPlaceDict];
+                LQTopPlaceModel *topPlace = [[LQTopPlaceModel alloc] initWithDictionary:topPlaceDict];
                 [returnArray addObject:topPlace];
             }
 //            NSArray *countries = [returnArray valueForKey:LQFlickrPlaceCountryPropertyKey];
 //            NSSet *allCountries = [NSSet setWithArray:countries];
-            NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:LQFlickrPlaceCountryPropertyKey ascending:YES];
-            NSArray *filteredResults = [returnArray sortedArrayUsingDescriptors:@[sortDescriptor]];
+            
+//            NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:LQFlickrPlaceCountryPropertyKey ascending:YES];
+//            NSArray *filteredResults = [returnArray sortedArrayUsingDescriptors:@[sortDescriptor]];
 
             dispatch_async(dispatch_get_main_queue(), ^{
-                if (completion) completion(filteredResults, nil);
+                if (completion) completion(returnArray, nil);
+
+//                if (completion) completion(filteredResults, nil);
             });
         } else {
             dispatch_async(dispatch_get_main_queue(), ^{

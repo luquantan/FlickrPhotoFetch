@@ -6,19 +6,12 @@
 //  Copyright (c) 2014 LuQuanTan. All rights reserved.
 //
 
-#import "LQFlickrPlace.h"
+#import "LQTopPlaceModel.h"
 #import "FlickrFetcher.h"
 
-//@property (nonatomic, copy) NSString *province;
-//@property (nonatomic, copy) NSString *state;
-//@property (nonatomic, copy) NSString *country;
-//
-//@property (nonatomic, copy) NSString *placeId;
-//@property (nonatomic, copy) NSString *woeId;
-//@property (nonatomic) double latitude;
-//@property (nonatomic) double longitude;
+;
 
-@implementation LQFlickrPlace
+@implementation LQTopPlaceModel
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
