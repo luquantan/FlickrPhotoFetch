@@ -63,10 +63,13 @@
             NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:LQFlickrPlaceCountryPropertyKey ascending:YES];
             NSArray *filteredResults = [returnArray sortedArrayUsingDescriptors:@[sortDescriptor]];
 
-            
-            if (completion) completion(filteredResults, nil);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (completion) completion(filteredResults, nil);
+            });
         } else {
-            if (completion) completion(nil, error);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (completion) completion(nil, error);
+            });
         }
     }];
 }

@@ -12,10 +12,24 @@
 #import "TopPlacesModel.h"
 #import "FlickrWebService.h"
 
+@interface LQTopPlacesTableViewSection : NSObject
+@property (strong, nonatomic) NSString *countryName;
+@property (strong, nonatomic) NSMutableArray *associatedPlaces;
+@end
+@implementation LQTopPlacesTableViewSection
+- (NSMutableArray *)associatedPlaces
+{
+    if (!_associatedPlaces) {
+        _associatedPlaces = [NSMutableArray array];
+    }
+    return _associatedPlaces;
+}
+@end
+
+//////////
+
 @interface TopPlacesTVC ()
-@property (nonatomic, strong) NSArray *topPlaces;
-@property (nonatomic, strong) NSSet *uniqueCountries;
-@property (nonatomic) NSInteger numberOfUniqueCountries;
+@property (nonatomic, strong) NSArray *topPlacesSections;
 @end
 
 @implementation TopPlacesTVC
@@ -33,19 +47,13 @@
 - (void)updateTopPlaces
 {
     [FlickrWebService getTopPlacesInBackgroundWithCompletion:^(NSArray *results, NSError *error) {
-        self.topPlaces = results; NSLog(@"Top Places updated");
+//        if (results.count > 0) [self setupTableViewSectionsWithRawTopPlaces:results];
+                if (results.count > 0) [self setupTableViewSectionsWithSortedTopPlaces:results];
         [self.refreshControl endRefreshing]; NSLog(@"end refresh");
-        
         if (error) {
             NSLog(@"%@", error);
         }
     }];
-}
-
-- (void)setTopPlaces:(NSArray *)topPlaces
-{
-    _topPlaces = topPlaces;
-    [self countriesInTopPlaces];
 }
 
 #pragma mark - RefreshControl
@@ -65,33 +73,82 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return self.numberOfUniqueCountries;
+    return self.topPlacesSections.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    //Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 1;
+    LQTopPlacesTableViewSection *sectionOb = self.topPlacesSections[section];
+    return sectionOb.associatedPlaces.count;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TopPlacesTableViewCell" forIndexPath:indexPath];
-    
-    
-    // Configure the cell...
-    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TopPlacesTVC Cell" forIndexPath:indexPath];
+ 
+    LQTopPlacesTableViewSection *section = self.topPlacesSections[indexPath.section];
+    LQFlickrPlace *place = section.associatedPlaces[indexPath.row];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@, %@", place.province, place.state];
     return cell;
 }
 
-#pragma mark - Helper Methods
-- (void)countriesInTopPlaces
+#pragma mark - Table View Delegate Methods
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    NSArray *countries = [self.topPlaces valueForKey:LQFlickrPlaceCountryPropertyKey];
-    self.uniqueCountries = [NSSet setWithArray:countries];
-    self.numberOfUniqueCountries = [self.uniqueCountries count];
+    LQTopPlacesTableViewSection *sectionOb = self.topPlacesSections[section];
+    return sectionOb.countryName;
+}
+#pragma mark - Helper Methods
+- (void)setupTableViewSectionsWithRawTopPlaces:(NSArray *)rawTopPlaces
+{
+    NSMutableDictionary *sectionsDict = [NSMutableDictionary dictionary];
+    for (LQFlickrPlace *place in rawTopPlaces) {
+        LQTopPlacesTableViewSection *section = sectionsDict[place.country];
+        if (!section) {
+            section = [LQTopPlacesTableViewSection new];
+            section.countryName = place.country;
+            sectionsDict[place.country] = section;
+        }
+        [section.associatedPlaces addObject:place];
+    }
+    
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"countryName" ascending:YES];
+    self.topPlacesSections = [[sectionsDict allValues] sortedArrayUsingDescriptors:@[sortDescriptor]];
+
+    [self.tableView reloadData];
+//    NSArray *countries = [self.topPlaces valueForKey:LQFlickrPlaceCountryPropertyKey];
+//    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"" ascending:YES];
+//    NSSet *uniqueNames = [NSSet setWithArray:countries];
+//    self.uniqueCountries = [[uniqueNames allObjects] sortedArrayUsingDescriptors:@[sortDescriptor]];
 }
 
+- (void)setupTableViewSectionsWithSortedTopPlaces:(NSArray *)sortedTopPlaces
+{
+    NSMutableArray *topPlacesSections = [NSMutableArray array];
+    for (LQFlickrPlace *place in sortedTopPlaces) {
+        LQTopPlacesTableViewSection *section = [topPlacesSections lastObject];
+        if (!section) {
+            section = [LQTopPlacesTableViewSection new];
+            section.countryName = place.country;
+            [section.associatedPlaces addObject:place];
+            [topPlacesSections addObject:section];
+        } else if ([section.countryName isEqualToString:place.country]) {
+            [section.associatedPlaces addObject:place];
+        } else {
+            LQTopPlacesTableViewSection *newSection = [LQTopPlacesTableViewSection new];
+            newSection.countryName = place.country;
+            [newSection.associatedPlaces addObject:place];
+            [topPlacesSections addObject:newSection];
+        }
+    }
+    self.topPlacesSections = topPlacesSections;
+
+    [self.tableView reloadData];
+    //    NSArray *countries = [self.topPlaces valueForKey:LQFlickrPlaceCountryPropertyKey];
+    //    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"" ascending:YES];
+    //    NSSet *uniqueNames = [NSSet setWithArray:countries];
+    //    self.uniqueCountries = [[uniqueNames allObjects] sortedArrayUsingDescriptors:@[sortDescriptor]];
+}
 
 
 /*
