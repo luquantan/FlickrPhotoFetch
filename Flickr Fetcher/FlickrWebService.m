@@ -8,11 +8,11 @@
 
 #import "FlickrWebService.h"
 #import "FlickrFetcher.h"
+
 #import "LQTopPlaceModel.h"
+#import "LQTop50PlacesModel.h"
 
 @implementation FlickrWebService
-
-
 
 //+ (void)getImageWithQuery:(NSURL *)url withBackgroundCompletion:(void (^)(UIImage *, NSError *))completionBlock
 //{
@@ -69,6 +69,30 @@
 
 //                if (completion) completion(filteredResults, nil);
             });
+        } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (completion) completion(nil, error);
+            });
+        }
+    }];
+}
+
++ (void)getTopPlacesWithPlaceId:(NSString *)placeId WithMaxResult:(int)maxResult withBackgroundCompletion:(void(^)(NSArray *results, NSError *error))completion
+{
+    [FlickrWebService getDataFromQuery:[FlickrFetcher URLforPhotosInPlace:placeId maxResults:maxResult] withBackgroundCompletion:^(NSDictionary *dictionary, NSError *error) {
+        if (dictionary) {
+            NSDictionary *photoDict = [dictionary valueForKeyPath:FLICKR_RESULTS_PHOTOS];
+            NSMutableArray *photos = [[NSMutableArray alloc] init];
+            for (NSDictionary *photoInfo in photoDict) {
+                LQTop50PlacesModel *model = [[LQTop50PlacesModel alloc] initWithDictionary:photoInfo];
+                [photos addObject:model];
+            }
+            
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (completion) completion(photos, nil);
+            });
+            
         } else {
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (completion) completion(nil, error);

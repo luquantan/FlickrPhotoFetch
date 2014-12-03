@@ -15,4 +15,6 @@
 + (void)getDataFromQuery:(NSURL *)url withBackgroundCompletion:(void(^)(NSDictionary *, NSError *))completionBlock;
 
 + (void)getTopPlacesInBackgroundWithCompletion:(void(^)(NSArray *results, NSError *error))completion;
+
++ (void)getTopPlacesWithPlaceId:(NSString *)placeId WithMaxResult:(int)maxResult withBackgroundCompletion:(void(^)(NSArray *results, NSError *error))completion;
 @end

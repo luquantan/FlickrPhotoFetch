@@ -9,7 +9,7 @@
 #import "LQTopPlaceModel.h"
 #import "FlickrFetcher.h"
 
-;
+
 
 @implementation LQTopPlaceModel
 

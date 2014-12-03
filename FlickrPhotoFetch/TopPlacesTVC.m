@@ -11,6 +11,7 @@
 #import "LQTopPlacesTableViewSection.h"
 
 #import "FlickrWebService.h"
+#import "TopPlacesPhotosTVC.h"
 
 @interface TopPlacesTVC ()
 @property (nonatomic, strong) NSArray *topPlacesSections;
@@ -37,6 +38,23 @@
             NSLog(@"%@", error);
         }
     }];
+}
+
+#pragma mark - Navigation
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([[segue destinationViewController] isKindOfClass:[TopPlacesPhotosTVC class]]) {
+        if ([sender isKindOfClass:[UITableViewCell class]]) {
+            NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+            if (indexPath) {
+                if ([segue.identifier isEqualToString:@"Show Top 50 Places"]) {
+                    TopPlacesPhotosTVC *vc = segue.destinationViewController;
+                    LQTopPlaceModel *model = [[self.topPlacesSections[indexPath.section] associatedPlaces] objectAtIndex:indexPath.row];
+                    vc.topPlacesPlaceId = model.placeId;
+                }
+            }
+        }
+    }
 }
 
 #pragma mark - Table view data source
@@ -109,8 +127,8 @@
 #pragma mark - Note to myself
 /*
  Could there be a way to combine LQFlickrPlace and LQTopPlacesTableViewSection into one class. 
- That way once the webservice call goes through, the LQTopPlacesTableViewSection information should be updated.
- All I need right now is contained inside LQTopPlacesTableViewSection. How do I make it better?
+ Or at least, have TopPlacsTVC send the array from FlickrWebSerivce to only one location and return the information (self.topPlacesSection)
+ How do I make it better?
 */
 
 
@@ -149,15 +167,6 @@
 }
 */
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 #pragma mark - Extra Code
 
