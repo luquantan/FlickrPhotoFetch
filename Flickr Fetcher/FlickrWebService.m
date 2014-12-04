@@ -29,6 +29,24 @@
     [task resume];
 }
 
++ (void)getPhotoFromQuery:(NSURL *)url withBackgroundCompletion:(void(^)(UIImage *image, NSError *error))completionBlock
+{
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration ephemeralSessionConfiguration];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
+    NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
+        if (!error) {
+            UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:location]];
+            if (completionBlock) completionBlock(image, nil);
+        } else {
+            if (completionBlock) completionBlock(nil, error);
+        }
+        
+    }];
+    [task resume];
+    
+}
+
 + (void)getTopPlacesInBackgroundWithCompletion:(void(^)(NSArray *results, NSError *error))completion
 {
     [FlickrWebService getDataFromQuery:[FlickrFetcher URLforTopPlaces] withBackgroundCompletion:^(NSDictionary *dictionary, NSError *error) {
@@ -66,6 +84,21 @@
                 if (completion) completion(photos, nil);
             });
             
+        } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (completion) completion(nil, error);
+            });
+        }
+    }];
+}
+
++ (void)getPhoto:(NSDictionary *)photo withFormat:(FlickrPhotoFormat)format withBackgroundCompletion:(void(^)(UIImage *image, NSError *error))completion
+{
+    [FlickrWebService getPhoto:photo withFormat:format withBackgroundCompletion:^(UIImage *image, NSError *error) {
+        if (!error && image) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (completion) completion(image, nil);
+            });
         } else {
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (completion) completion(nil, error);

@@ -91,8 +91,8 @@
 		09035F3F1A2A6164002021AE = {
 			isa = PBXGroup;
 			children = (
-				D98351F61A2FADD40077CF80 /* Top50PlacesView */,
 				D9F5D69E1A2CBD330076A7FF /* TopPlacesView */,
+				D98351F61A2FADD40077CF80 /* TopPlacesPhoto */,
 				D9F5D69F1A2CBD4B0076A7FF /* ImageViewController */,
 				09035F711A2A61B3002021AE /* Flickr Fetcher */,
 				09035F4A1A2A6164002021AE /* FlickrPhotoFetch */,
@@ -163,7 +163,7 @@
 			path = "Flickr Fetcher";
 			sourceTree = "<group>";
 		};
-		D98351F61A2FADD40077CF80 /* Top50PlacesView */ = {
+		D98351F61A2FADD40077CF80 /* TopPlacesPhoto */ = {
 			isa = PBXGroup;
 			children = (
 				D98351F01A2F76930077CF80 /* TopPlacesPhotosTVC.h */,
@@ -171,7 +171,7 @@
 				D98351F31A2F9F210077CF80 /* LQTopPlacesPhotos.h */,
 				D98351F41A2F9F210077CF80 /* LQTopPlacesPhotos.m */,
 			);
-			name = Top50PlacesView;
+			name = TopPlacesPhoto;
 			sourceTree = "<group>";
 		};
 		D9F5D69E1A2CBD330076A7FF /* TopPlacesView */ = {
