@@ -10,7 +10,6 @@
 #import "FlickrFetcher.h"
 
 #import "LQTopPlaceModel.h"
-#import "LQTopPlacesPhotos.h"
 
 @implementation FlickrWebService
 + (void)getDataFromQuery:(NSURL *)url withBackgroundCompletion:(void(^)(NSDictionary *dictionary, NSError *error))completionBlock
@@ -73,10 +72,10 @@
 {
     [FlickrWebService getDataFromQuery:[FlickrFetcher URLforPhotosInPlace:placeId maxResults:maxResult] withBackgroundCompletion:^(NSDictionary *dictionary, NSError *error) {
         if (dictionary) {
-            NSDictionary *photoDict = [dictionary valueForKeyPath:FLICKR_RESULTS_PHOTOS];
+            NSArray *photoDicts = [dictionary valueForKeyPath:FLICKR_RESULTS_PHOTOS];
             NSMutableArray *photos = [[NSMutableArray alloc] init];
-            for (NSDictionary *photoInfo in photoDict) {
-                LQTopPlacesPhotos *model = [[LQTopPlacesPhotos alloc] initWithDictionary:photoInfo];
+            for (NSDictionary *photoInfo in photoDicts) {
+                LQTopPlacesPhoto *model = [[LQTopPlacesPhoto alloc] initWithDictionary:photoInfo];
                 [photos addObject:model];
             }
     
@@ -92,9 +91,10 @@
     }];
 }
 
-+ (void)getPhoto:(NSDictionary *)photo withFormat:(FlickrPhotoFormat)format withBackgroundCompletion:(void(^)(UIImage *image, NSError *error))completion
++ (void)getPhoto:(LQTopPlacesPhoto *)photo withFormat:(FlickrPhotoFormat)format withBackgroundCompletion:(void(^)(UIImage *image, NSError *error))completion
 {
-    [FlickrWebService getPhoto:photo withFormat:format withBackgroundCompletion:^(UIImage *image, NSError *error) {
+    
+    [FlickrWebService getPhotoFromQuery:[FlickrFetcher URLforPhoto:photo format:format] withBackgroundCompletion:^(UIImage *image, NSError *error) {
         if (!error && image) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (completion) completion(image, nil);
@@ -104,6 +104,7 @@
                 if (completion) completion(nil, error);
             });
         }
+        
     }];
 }
 

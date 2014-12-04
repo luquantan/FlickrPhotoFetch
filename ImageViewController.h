@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LQTopPlacesPhoto.h"
 
 @interface ImageViewController : UIViewController
 
 @property (nonatomic, strong) NSURL *imageURL;
 @property (nonatomic, strong) NSString *imageName;
 
+@property (nonatomic, strong) LQTopPlacesPhoto *photo;
 @end

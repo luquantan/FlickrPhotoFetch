@@ -22,7 +22,7 @@
 {
     _scrollView = scrollView;
     _scrollView.minimumZoomScale = 1.0;
-    _scrollView.maximumZoomScale = 2.0;
+    _scrollView.maximumZoomScale = 5.0;
     _scrollView.delegate = self;
     self.scrollView.contentSize = self.image ? self.image.size : CGSizeZero;
 }
@@ -43,7 +43,20 @@
 - (void)setImageName:(NSString *)imageName
 {
     _imageName = imageName;
+}
+
+- (void)setPhoto:(LQTopPlacesPhoto *)photo
+{
+    _photo = photo;
     [self.activityIndicator startAnimating];
+    [FlickrWebService getPhoto:_photo withFormat:FlickrPhotoFormatLarge withBackgroundCompletion:^(UIImage *image, NSError *error) {
+        if (!error && image) {
+            self.image = image;
+        } else {
+            NSLog(@"%@", error);
+        }
+        [self.activityIndicator stopAnimating];
+    }];
 }
 
 - (UIImage *)image
@@ -69,5 +82,6 @@
     [super viewDidLoad];
     [self.scrollView addSubview:self.imageView];
 }
+
 
 @end

@@ -18,7 +18,7 @@
 		D92F3CB61A2D22B20096CB86 /* LQTopPlaceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D92F3CB51A2D22B20096CB86 /* LQTopPlaceModel.m */; };
 		D98351EF1A2F5E140077CF80 /* LQTopPlaceTableViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = D98351EE1A2F5E140077CF80 /* LQTopPlaceTableViewSection.m */; };
 		D98351F21A2F76930077CF80 /* TopPlacesPhotosTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D98351F11A2F76930077CF80 /* TopPlacesPhotosTVC.m */; };
-		D98351F51A2F9F210077CF80 /* LQTopPlacesPhotos.m in Sources */ = {isa = PBXBuildFile; fileRef = D98351F41A2F9F210077CF80 /* LQTopPlacesPhotos.m */; };
+		D98351F51A2F9F210077CF80 /* LQTopPlacesPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = D98351F41A2F9F210077CF80 /* LQTopPlacesPhoto.m */; };
 		D9F5D6941A2CADE20076A7FF /* FlickrWebService.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F5D6931A2CADE20076A7FF /* FlickrWebService.m */; };
 		D9F5D6971A2CAF830076A7FF /* ImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F5D6951A2CAF830076A7FF /* ImageViewController.m */; };
 		D9F5D69A1A2CAFA50076A7FF /* UIImage+Sizing.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F5D6991A2CAFA50076A7FF /* UIImage+Sizing.m */; };
@@ -58,8 +58,8 @@
 		D98351EE1A2F5E140077CF80 /* LQTopPlaceTableViewSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LQTopPlaceTableViewSection.m; sourceTree = "<group>"; };
 		D98351F01A2F76930077CF80 /* TopPlacesPhotosTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopPlacesPhotosTVC.h; sourceTree = "<group>"; };
 		D98351F11A2F76930077CF80 /* TopPlacesPhotosTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopPlacesPhotosTVC.m; sourceTree = "<group>"; };
-		D98351F31A2F9F210077CF80 /* LQTopPlacesPhotos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LQTopPlacesPhotos.h; sourceTree = "<group>"; };
-		D98351F41A2F9F210077CF80 /* LQTopPlacesPhotos.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LQTopPlacesPhotos.m; sourceTree = "<group>"; };
+		D98351F31A2F9F210077CF80 /* LQTopPlacesPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LQTopPlacesPhoto.h; sourceTree = "<group>"; };
+		D98351F41A2F9F210077CF80 /* LQTopPlacesPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LQTopPlacesPhoto.m; sourceTree = "<group>"; };
 		D9F5D6921A2CADE20076A7FF /* FlickrWebService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrWebService.h; sourceTree = "<group>"; };
 		D9F5D6931A2CADE20076A7FF /* FlickrWebService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrWebService.m; sourceTree = "<group>"; };
 		D9F5D6951A2CAF830076A7FF /* ImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageViewController.m; sourceTree = "<group>"; };
@@ -168,8 +168,8 @@
 			children = (
 				D98351F01A2F76930077CF80 /* TopPlacesPhotosTVC.h */,
 				D98351F11A2F76930077CF80 /* TopPlacesPhotosTVC.m */,
-				D98351F31A2F9F210077CF80 /* LQTopPlacesPhotos.h */,
-				D98351F41A2F9F210077CF80 /* LQTopPlacesPhotos.m */,
+				D98351F31A2F9F210077CF80 /* LQTopPlacesPhoto.h */,
+				D98351F41A2F9F210077CF80 /* LQTopPlacesPhoto.m */,
 			);
 			name = TopPlacesPhoto;
 			sourceTree = "<group>";
@@ -308,7 +308,7 @@
 				D98351F21A2F76930077CF80 /* TopPlacesPhotosTVC.m in Sources */,
 				D92F3CB61A2D22B20096CB86 /* LQTopPlaceModel.m in Sources */,
 				09035F511A2A6164002021AE /* AppDelegate.m in Sources */,
-				D98351F51A2F9F210077CF80 /* LQTopPlacesPhotos.m in Sources */,
+				D98351F51A2F9F210077CF80 /* LQTopPlacesPhoto.m in Sources */,
 				09035F751A2A61B3002021AE /* FlickrFetcher.m in Sources */,
 				09035F4E1A2A6164002021AE /* main.m in Sources */,
 			);

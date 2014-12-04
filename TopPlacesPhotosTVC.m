@@ -7,7 +7,8 @@
 //
 
 #import "TopPlacesPhotosTVC.h"
-#import "LQTopPlacesPhotos.h"
+#import "LQTopPlacesPhoto.h"
+#import "ImageViewController.h"
 #import "FlickrWebService.h"
 
 static int const LQMaxNumberOfResultsToDisplay = 50;
@@ -16,6 +17,7 @@ static NSString * const LQTopPlacePhotosTVCCellReuseIdentifier = @"TopPlacesPhot
 
 @interface TopPlacesPhotosTVC ()
 @property (nonatomic, strong) NSArray *arrayOfPhotoInfo;
+@property (nonatomic, strong) NSArray *photoDicts;
 @end
 
 @implementation TopPlacesPhotosTVC
@@ -25,6 +27,7 @@ static NSString * const LQTopPlacePhotosTVCCellReuseIdentifier = @"TopPlacesPhot
     [super viewDidLoad];
     [FlickrWebService getTopPlacesWithPlaceId:self.topPlacesPlaceId withMaxResult:LQMaxNumberOfResultsToDisplay withBackgroundCompletion:^(NSArray *results, NSError *error) {
         self.arrayOfPhotoInfo = results;
+        
         [self.tableView reloadData];
         if (error) {
             NSLog(@"%@", error);
@@ -56,14 +59,17 @@ static NSString * const LQTopPlacePhotosTVCCellReuseIdentifier = @"TopPlacesPhot
     return cell;
 }
 
-/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue destinationViewController] isKindOfClass:[ImageViewController class]]) {
+        ImageViewController *ivc = segue.destinationViewController;
+        NSIndexPath *index = [self.tableView indexPathForCell:sender];
+        ivc.photo = self.arrayOfPhotoInfo[index.row];
+    }
 }
-*/
+
 
 @end
