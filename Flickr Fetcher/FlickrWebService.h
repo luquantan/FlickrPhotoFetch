@@ -16,5 +16,5 @@
 
 + (void)getTopPlacesInBackgroundWithCompletion:(void(^)(NSArray *results, NSError *error))completion;
 
-+ (void)getTopPlacesWithPlaceId:(NSString *)placeId WithMaxResult:(int)maxResult withBackgroundCompletion:(void(^)(NSArray *results, NSError *error))completion;
++ (void)getTopPlacesWithPlaceId:(NSString *)placeId withMaxResult:(int)maxResult withBackgroundCompletion:(void(^)(NSArray *results, NSError *error))completion;
 @end

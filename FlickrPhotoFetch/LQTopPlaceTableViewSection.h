@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface LQTopPlacesTableViewSection : NSObject
+@interface LQTopPlaceTableViewSection : NSObject
 
 @property (strong, nonatomic) NSString *countryName;
 @property (strong, nonatomic) NSMutableArray *associatedPlaces;

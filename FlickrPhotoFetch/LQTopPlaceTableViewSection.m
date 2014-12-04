@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 LuQuanTan. All rights reserved.
 //
 
-#import "LQTopPlacesTableViewSection.h"
+#import "LQTopPlaceTableViewSection.h"
 
-@implementation LQTopPlacesTableViewSection
+@implementation LQTopPlaceTableViewSection
 
 - (NSMutableArray *)associatedPlaces
 {

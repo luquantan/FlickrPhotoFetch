@@ -9,6 +9,7 @@
 #import "LQTopPlaceModel.h"
 #import "FlickrFetcher.h"
 
+NSString * const LQTopPlacesCountryPropertyKey = @"country";
 
 
 @implementation LQTopPlaceModel

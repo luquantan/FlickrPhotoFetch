@@ -6,16 +6,17 @@
 //  Copyright (c) 2014 LuQuanTan. All rights reserved.
 //
 
-#import "LQTop50PlacesModel.h"
+#import "LQTopPlacesPhotos.h"
 
 static NSString * const LQTop50PlacesModelPhotoTitleKey = @"title";
 static NSString * const LQTop50PlacesModelPhotoDescriptionKey = @"description._content";
-@interface LQTop50PlacesModel()
+
+@interface LQTopPlacesPhotos()
 @property (nonatomic, strong) NSString *photoTitle;
 @property (nonatomic, strong) NSString *photoDescription;
 @end
 
-@implementation LQTop50PlacesModel
+@implementation LQTopPlacesPhotos
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary
 {

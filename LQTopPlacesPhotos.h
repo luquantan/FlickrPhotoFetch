@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface LQTop50PlacesModel : NSObject
+@interface LQTopPlacesPhotos : NSObject
 
 @property (nonatomic, strong) NSDictionary *photo;
 
