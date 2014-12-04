@@ -8,8 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@interface LQFlickrPlace : NSObject
+extern NSString * const LQTopPlacesCountryPropertyKey;
 
+@interface LQTopPlaceModel : NSObject
 @property (nonatomic, copy) NSString *province;
 @property (nonatomic, copy) NSString *state;
 @property (nonatomic, copy) NSString *country;

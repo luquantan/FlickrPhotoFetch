@@ -11,16 +11,13 @@
 #import "FlickrWebService.h"
 
 @interface ImageViewController () <UIScrollViewDelegate>
-
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (nonatomic,strong) UIImageView *imageView;
 @property (nonatomic,strong) UIImage *image;
-
 @end
 
 @implementation ImageViewController
-
 - (void)setScrollView:(UIScrollView *)scrollView
 {
     _scrollView = scrollView;
@@ -34,6 +31,7 @@
 {
     return self.imageView;
 }
+
 - (UIImageView *)imageView
 {
     if (!_imageView) {
@@ -42,15 +40,10 @@
     return _imageView;
 }
 
-
 - (void)setImageName:(NSString *)imageName
 {
     _imageName = imageName;
     [self.activityIndicator startAnimating];
-    [FlickrWebService getImageWithQuery:self.imageURL withBackgroundCompletion:^(UIImage *image, NSError *error) {
-        self.image = image;
-        [self.activityIndicator stopAnimating];
-    }];
 }
 
 - (UIImage *)image
