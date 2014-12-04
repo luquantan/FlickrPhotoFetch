@@ -1,5 +1,5 @@
 //
-//  LQTop50PlacesModel.m
+//  LQTopPlacesPhotos.m
 //  FlickrPhotoFetch
 //
 //  Created by LuQuan Intrepid on 12/3/14.
@@ -32,16 +32,14 @@ static NSString * const LQTop50PlacesModelPhotoDescriptionKey = @"description._c
 
 - (NSString *)tableViewDescriptionForPhoto
 {
-    NSString *description = [[NSString alloc] init];
-    
-    if (self.photoTitle) {
+    NSString *description = nil;
+    if ([self.photoTitle length]) {
         description = self.photoTitle;
-    } else if (self.photoDescription    ) {
+    } else if ([self.photoDescription length]) {
         description = self.photoDescription;
     } else {
-        description = @"unknown";
+        description = @"Unknown";
     }
-    
     return description;
 }
 

@@ -1,5 +1,5 @@
 //
-//  LQTop50PlacesModel.h
+//  LQTopPlacesPhotos.h
 //  FlickrPhotoFetch
 //
 //  Created by LuQuan Intrepid on 12/3/14.
