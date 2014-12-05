@@ -23,37 +23,21 @@ static NSString * const LQTopPlacesPhotoFileTypeKey = @"originalformat";
 
 @end
 
-
-//if (format == FlickrPhotoFormatOriginal) secret = [photo objectForKey:@"originalsecret"];
-//
-//NSString *fileType = @"jpg";
-//if (format == FlickrPhotoFormatOriginal) fileType = [photo objectForKey:@"originalformat"];
-//
-//if (!farm || !server || !photo_id || !secret) return nil;
-//
-//NSString *formatString = @"s";
-//switch (format) {
-//    case FlickrPhotoFormatSquare:    formatString = @"s"; break;
-//    case FlickrPhotoFormatLarge:     formatString = @"b"; break;
-//    case FlickrPhotoFormatOriginal:  formatString = @"o"; break;
-//}
-//
-
 @implementation LQTopPlacesPhoto
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
     self = [super init];
     if (self) {
-        self.photoTitle = [dictionary valueForKey:LQTopPlacesPhotoTitleKey];
+        self.photoTitle = [dictionary objectForKey:LQTopPlacesPhotoTitleKey];
         self.photoDescription = [dictionary valueForKeyPath:LQTopPlacesPhotoDescriptionKey];
         
-        self.farm = [dictionary valueForKey:LQTopPlacesPhotoFarmKey];
-        self.server = [dictionary valueForKey:LQTopPlacesPhotoServerKey];
-        self.photoId = [dictionary valueForKey:LQTopPlacesPhotoPhotoIdKey];
-        self.secret = [dictionary valueForKey:LQTopPlacesPhotoSecretKey];
-        self.fileType = [dictionary valueForKey:LQTopPlacesPhotoFileTypeKey];
-        self.originalsecret = [dictionary valueForKey:LQTopPlacesPhotoOriginalSecretKey];
+        self.farm = [dictionary objectForKey:LQTopPlacesPhotoFarmKey];
+        self.server = [dictionary objectForKey:LQTopPlacesPhotoServerKey];
+        self.photoId = [dictionary objectForKey:LQTopPlacesPhotoPhotoIdKey];
+        self.secret = [dictionary objectForKey:LQTopPlacesPhotoSecretKey];
+        self.fileType = [dictionary objectForKey:LQTopPlacesPhotoFileTypeKey];
+        self.originalsecret = [dictionary objectForKey:LQTopPlacesPhotoOriginalSecretKey];
         
     }
     return self;

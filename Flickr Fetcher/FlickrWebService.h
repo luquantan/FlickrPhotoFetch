@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "FlickrFetcher.h"
 #import <UIKit/UIKit.h>
+#import "FlickrFetcher.h"
 #import "LQTopPlacesPhoto.h"
 
 

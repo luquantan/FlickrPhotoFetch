@@ -49,7 +49,7 @@
 {
     _photo = photo;
     [self.activityIndicator startAnimating];
-    [FlickrWebService getPhoto:_photo withFormat:FlickrPhotoFormatLarge withBackgroundCompletion:^(UIImage *image, NSError *error) {
+    [FlickrWebService getPhoto:_photo withFormat:FlickrPhotoFormatOriginal withBackgroundCompletion:^(UIImage *image, NSError *error) {
         if (!error && image) {
             self.image = image;
         } else {

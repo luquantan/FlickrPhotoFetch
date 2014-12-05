@@ -46,9 +46,15 @@
     
     NSString *formatString = @"s";
     switch (format) {
-        case FlickrPhotoFormatSquare:    formatString = @"s"; break;
-        case FlickrPhotoFormatLarge:     formatString = @"b"; break;
-        case FlickrPhotoFormatOriginal:  formatString = @"o"; break;
+        case FlickrPhotoFormatSquare:
+            formatString = @"s";
+            break;
+        case FlickrPhotoFormatLarge:
+            formatString = @"b";
+            break;
+        case FlickrPhotoFormatOriginal:
+            formatString = @"o";
+            break;
     }
     NSString *returnString = [NSString stringWithFormat:@"http://farm%@.static.flickr.com/%@/%@_%@_%@.%@", farm, server, photo_id, secret, formatString, fileType];
     
