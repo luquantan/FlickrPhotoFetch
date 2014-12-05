@@ -10,4 +10,7 @@
 
 @interface LQApplicationSettings : NSObject
 
++ (instancetype)sharedSettings;
+@property (nonatomic, retain) NSArray *recentPhotos;
+
 @end
