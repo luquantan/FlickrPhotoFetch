@@ -56,4 +56,31 @@ static NSString * const LQTopPlacesPhotoFileTypeKey = @"originalformat";
     return description;
 }
 
+- (void)encodeWithCoder:(NSCoder *)coder
+{
+    [coder encodeObject:self.farm forKey:LQTopPlacesPhotoFarmKey];
+    [coder encodeObject:self.server forKey:LQTopPlacesPhotoServerKey];
+    [coder encodeObject:self.photoId forKey:LQTopPlacesPhotoPhotoIdKey];
+    [coder encodeObject:self.secret forKey:LQTopPlacesPhotoSecretKey];
+    [coder encodeObject:self.originalsecret forKey:LQTopPlacesPhotoOriginalSecretKey];
+    [coder encodeObject:self.fileType forKey:LQTopPlacesPhotoFileTypeKey];
+    [coder encodeObject:self.photoTitle forKey:LQTopPlacesPhotoTitleKey];
+    [coder encodeObject:self.photoDescription forKey:LQTopPlacesPhotoDescriptionKey];
+}
+
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+    self = [super init];
+    if (self) {
+        self.farm = [coder decodeObjectForKey:LQTopPlacesPhotoFarmKey];
+        self.server = [coder decodeObjectForKey:LQTopPlacesPhotoServerKey];
+        self.photoId = [coder decodeObjectForKey:LQTopPlacesPhotoPhotoIdKey];
+        self.secret = [coder decodeObjectForKey:LQTopPlacesPhotoSecretKey];
+        self.originalsecret = [coder decodeObjectForKey:LQTopPlacesPhotoOriginalSecretKey];
+        self.fileType = [coder decodeObjectForKey:LQTopPlacesPhotoFileTypeKey];
+        self.photoTitle = [coder decodeObjectForKey:LQTopPlacesPhotoTitleKey];
+        self.photoDescription = [coder decodeObjectForKey:LQTopPlacesPhotoDescriptionKey];
+    }
+    return self;
+}
 @end
