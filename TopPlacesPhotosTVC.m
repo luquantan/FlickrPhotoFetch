@@ -10,6 +10,7 @@
 #import "LQTopPlacesPhoto.h"
 #import "ImageViewController.h"
 #import "FlickrWebService.h"
+#import "LQApplicationSettings.h"
 
 static int const LQMaxNumberOfResultsToDisplay = 50;
 static NSString * const LQTopPlacePhotosTVCCellReuseIdentifier = @"TopPlacesPhotosTVC Cell";
@@ -68,6 +69,9 @@ static NSString * const LQTopPlacePhotosTVCCellReuseIdentifier = @"TopPlacesPhot
         ImageViewController *ivc = segue.destinationViewController;
         NSIndexPath *index = [self.tableView indexPathForCell:sender];
         ivc.photo = self.arrayOfPhotoInfo[index.row];
+        NSMutableArray *recentPhotos = [[LQApplicationSettings sharedSettings].recentPhotos mutableCopy];
+        [recentPhotos addObject:self.arrayOfPhotoInfo[index.row]];
+        [LQApplicationSettings sharedSettings].recentPhotos = recentPhotos;
     }
 }
 

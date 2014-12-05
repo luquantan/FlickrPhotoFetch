@@ -36,7 +36,10 @@ static NSInteger const LQApplicationSettingsMaxNumberOfRecentPhotos = 50;
 - (NSArray *)validifyRecentPhotosToSave:(NSMutableArray *)photos
 {
     NSMutableOrderedSet *set = [[NSMutableOrderedSet alloc] initWithArray:photos];
-    [set removeObjectsInRange:NSMakeRange(LQApplicationSettingsMaxNumberOfRecentPhotos - 1, [set count] -1 )];
+    NSUInteger setCount = [set count];
+    if (setCount > LQApplicationSettingsMaxNumberOfRecentPhotos) {
+        [set removeObjectsInRange:NSMakeRange(LQApplicationSettingsMaxNumberOfRecentPhotos - 1, setCount -1 )];
+    }
     NSArray *returnArray = [NSArray arrayWithObject:set];
     return returnArray;
 }
