@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LQTopPlacesPhoto.h"
+
+@class LQTopPlacesPhoto;
 
 @interface ImageViewController : UIViewController
 

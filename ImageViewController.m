@@ -9,6 +9,7 @@
 #import "ImageViewController.h"
 #import "UIImage+Sizing.h"
 #import "FlickrWebService.h"
+#import "LQTopPlacesPhoto.h"
 
 @interface ImageViewController () <UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
