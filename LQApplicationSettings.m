@@ -19,7 +19,7 @@ static NSInteger const LQApplicationSettingsMaxNumberOfRecentPhotos = 50;
 
 @synthesize recentPhotos = _recentPhotos;
 
-- (NSMutableArray *)recentPhotos
+- (NSArray *)recentPhotos
 {
     if (!_recentPhotos) {
         _recentPhotos = [self loadRecentPhotos];
@@ -27,20 +27,20 @@ static NSInteger const LQApplicationSettingsMaxNumberOfRecentPhotos = 50;
     return _recentPhotos;
 }
 
-- (void)setRecentPhotos:(NSMutableArray *)recentPhotos
+- (void)setRecentPhotos:(NSArray *)recentPhotos
 {
     _recentPhotos = recentPhotos;
     [self saveRecentPhotos:[self validifyRecentPhotosToSave:recentPhotos]];
 }
 
-- (NSArray *)validifyRecentPhotosToSave:(NSMutableArray *)photos
+- (NSArray *)validifyRecentPhotosToSave:(NSArray *)photos
 {
     NSMutableOrderedSet *set = [[NSMutableOrderedSet alloc] initWithArray:photos];
     NSUInteger setCount = [set count];
     if (setCount > LQApplicationSettingsMaxNumberOfRecentPhotos) {
         [set removeObjectsInRange:NSMakeRange(LQApplicationSettingsMaxNumberOfRecentPhotos - 1, setCount -1 )];
     }
-    NSArray *returnArray = [NSArray arrayWithObject:set];
+    NSArray *returnArray = [set array];
     return returnArray;
 }
 
@@ -66,7 +66,7 @@ static NSInteger const LQApplicationSettingsMaxNumberOfRecentPhotos = 50;
 {
     NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:LQApplicationSettingsSavePhotosKey];
     NSArray *photos = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-    return photos;
+    return photos ? : @[];
 }
 
 @end
