@@ -9,6 +9,7 @@
 #import "LQApplicationSettings.h"
 
 static NSString * const LQApplicationSettingsSavePhotosKey = @"LQApplicationSettingsSavePhotosKey";
+static NSInteger const LQApplicationSettingsMaxNumberOfRecentPhotos = 50;
 
 @interface LQApplicationSettings()
 
@@ -18,7 +19,7 @@ static NSString * const LQApplicationSettingsSavePhotosKey = @"LQApplicationSett
 
 @synthesize recentPhotos = _recentPhotos;
 
-- (NSArray *)recentPhotos
+- (NSMutableArray *)recentPhotos
 {
     if (!_recentPhotos) {
         _recentPhotos = [self loadRecentPhotos];
@@ -26,10 +27,18 @@ static NSString * const LQApplicationSettingsSavePhotosKey = @"LQApplicationSett
     return _recentPhotos;
 }
 
-- (void)setRecentPhotos:(NSArray *)recentPhotos
+- (void)setRecentPhotos:(NSMutableArray *)recentPhotos
 {
     _recentPhotos = recentPhotos;
-    [self saveRecentPhotos:recentPhotos];
+    [self saveRecentPhotos:[self validifyRecentPhotosToSave:recentPhotos]];
+}
+
+- (NSArray *)validifyRecentPhotosToSave:(NSMutableArray *)photos
+{
+    NSMutableOrderedSet *set = [[NSMutableOrderedSet alloc] initWithArray:photos];
+    [set removeObjectsInRange:NSMakeRange(LQApplicationSettingsMaxNumberOfRecentPhotos - 1, [set count] -1 )];
+    NSArray *returnArray = [NSArray arrayWithObject:set];
+    return returnArray;
 }
 
 + (instancetype)sharedSettings
@@ -42,7 +51,7 @@ static NSString * const LQApplicationSettingsSavePhotosKey = @"LQApplicationSett
     return settings;
 }
 
-- (void)saveRecentPhotos:(id)photos
+- (void)saveRecentPhotos:(NSArray *)photos
 {
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:photos];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
