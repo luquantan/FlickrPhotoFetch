@@ -129,10 +129,40 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="aBA-RN-BR5" kind="relationship" relationship="rootViewController" id="ODF-Ax-lFV"/>
+                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eQQ-D5-rMy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="25" y="-304"/>
+        </scene>
+        <!--Recent PhotosTVC-->
+        <scene sceneID="Cbq-B6-mbh">
+            <objects>
+                <tableViewController id="aBA-RN-BR5" customClass="LQRecentPhotosTVC" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="OLt-4G-kGb">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LQRecentPhotosTVC Cell" id="gGR-ql-KE6">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gGR-ql-KE6" id="xIz-Aj-S1u">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="aBA-RN-BR5" id="9xJ-2Q-RJW"/>
+                            <outlet property="delegate" destination="aBA-RN-BR5" id="KKf-pW-eqZ"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="YDv-sB-Mz5"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BhP-65-ac6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="25" y="434"/>
         </scene>
         <!--Top 50 Photos-->
         <scene sceneID="bLK-f9-Wmc">
