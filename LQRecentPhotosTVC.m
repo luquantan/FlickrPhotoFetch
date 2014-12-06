@@ -7,45 +7,48 @@
 //
 
 #import "LQRecentPhotosTVC.h"
+#import "LQApplicationSettings.h"
+#import "LQTopPlacesPhoto.h"
 
 static NSString * const LQRecentPhotosTVCCellReuseIdentifier = @"LQRecentPhotosTVC Cell";
 
 @interface LQRecentPhotosTVC ()
-
+@property (nonatomic, strong) NSArray *recentPhotos;
 @end
 
 @implementation LQRecentPhotosTVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self recentPhotos];
+}
+- (NSArray *)recentPhotos
+{
+    _recentPhotos = [LQApplicationSettings sharedSettings].recentPhotos;
+
+    return _recentPhotos;
+}
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
-    return 0;
+    return [self.recentPhotos count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:LQRecentPhotosTVCCellReuseIdentifier forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
+    LQTopPlacesPhoto *photo = self.recentPhotos[indexPath.row];
+    cell.textLabel.text = [photo tableViewDescriptionForPhoto];
     return cell;
 }
 

@@ -21,9 +21,7 @@ static NSInteger const LQApplicationSettingsMaxNumberOfRecentPhotos = 50;
 
 - (NSArray *)recentPhotos
 {
-    if (!_recentPhotos) {
-        _recentPhotos = [self loadRecentPhotos];
-    }
+    _recentPhotos = [self loadRecentPhotos];
     return _recentPhotos;
 }
 
@@ -65,8 +63,12 @@ static NSInteger const LQApplicationSettingsMaxNumberOfRecentPhotos = 50;
 - (id)loadRecentPhotos
 {
     NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:LQApplicationSettingsSavePhotosKey];
-    NSArray *photos = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-    return photos ? : @[];
+    if (data) {
+        NSArray *photos = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+        return photos;
+    } else {
+        return @[];
+    }
 }
 
 @end
