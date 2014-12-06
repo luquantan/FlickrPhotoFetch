@@ -69,11 +69,12 @@ static NSString * const LQTopPlacePhotosTVCCellReuseIdentifier = @"TopPlacesPhot
         ImageViewController *ivc = segue.destinationViewController;
         if ([sender isKindOfClass:[UITableViewCell class]]) sender = (UITableViewCell *)sender;
         NSIndexPath *index = [self.tableView indexPathForCell:sender];
-        ivc.photo = self.arrayOfPhotoInfo[index.row];
         
         NSMutableArray *recentPhotos = [[LQApplicationSettings sharedSettings].recentPhotos mutableCopy];
         [recentPhotos insertObject:self.arrayOfPhotoInfo[index.row] atIndex:0];
         [LQApplicationSettings sharedSettings].recentPhotos = recentPhotos;
+
+        ivc.photo = self.arrayOfPhotoInfo[index.row];
     }
 }
 
