@@ -17,6 +17,7 @@
 		09035F751A2A61B3002021AE /* FlickrFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 09035F741A2A61B3002021AE /* FlickrFetcher.m */; };
 		D92F3CB61A2D22B20096CB86 /* LQTopPlaceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D92F3CB51A2D22B20096CB86 /* LQTopPlaceModel.m */; };
 		D94E0B971A33A1EE0006EFDC /* LQRecentPhotosTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D94E0B961A33A1EE0006EFDC /* LQRecentPhotosTVC.m */; };
+		D94E0B9D1A3659810006EFDC /* iPadStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D94E0B9C1A3659810006EFDC /* iPadStoryboard.storyboard */; };
 		D98351EF1A2F5E140077CF80 /* LQTopPlaceTableViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = D98351EE1A2F5E140077CF80 /* LQTopPlaceTableViewSection.m */; };
 		D98351F21A2F76930077CF80 /* TopPlacesPhotosTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D98351F11A2F76930077CF80 /* TopPlacesPhotosTVC.m */; };
 		D98351F51A2F9F210077CF80 /* LQTopPlacesPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = D98351F41A2F9F210077CF80 /* LQTopPlacesPhoto.m */; };
@@ -58,6 +59,7 @@
 		D92F3CB51A2D22B20096CB86 /* LQTopPlaceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LQTopPlaceModel.m; path = ../LQTopPlaceModel.m; sourceTree = "<group>"; };
 		D94E0B951A33A1EE0006EFDC /* LQRecentPhotosTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LQRecentPhotosTVC.h; sourceTree = "<group>"; };
 		D94E0B961A33A1EE0006EFDC /* LQRecentPhotosTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LQRecentPhotosTVC.m; sourceTree = "<group>"; };
+		D94E0B9C1A3659810006EFDC /* iPadStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = iPadStoryboard.storyboard; path = ../iPadStoryboard.storyboard; sourceTree = "<group>"; };
 		D98351ED1A2F5E140077CF80 /* LQTopPlaceTableViewSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LQTopPlaceTableViewSection.h; sourceTree = "<group>"; };
 		D98351EE1A2F5E140077CF80 /* LQTopPlaceTableViewSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LQTopPlaceTableViewSection.m; sourceTree = "<group>"; };
 		D98351F01A2F76930077CF80 /* TopPlacesPhotosTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopPlacesPhotosTVC.h; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 				09035F521A2A6164002021AE /* ViewController.h */,
 				09035F531A2A6164002021AE /* ViewController.m */,
 				09035F551A2A6164002021AE /* Main.storyboard */,
+				D94E0B9C1A3659810006EFDC /* iPadStoryboard.storyboard */,
 				09035F581A2A6164002021AE /* Images.xcassets */,
 				09035F5A1A2A6164002021AE /* LaunchScreen.xib */,
 				09035F4B1A2A6164002021AE /* Supporting Files */,
@@ -308,6 +311,7 @@
 				09035F571A2A6164002021AE /* Main.storyboard in Resources */,
 				09035F5C1A2A6164002021AE /* LaunchScreen.xib in Resources */,
 				09035F591A2A6164002021AE /* Images.xcassets in Resources */,
+				D94E0B9D1A3659810006EFDC /* iPadStoryboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -398,7 +402,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				COPY_PHASE_STRIP = NO;
+				COPY_PHASE_STRIP = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -418,6 +422,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -452,6 +457,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
