@@ -33,30 +33,35 @@
     return [self URLForQuery:[NSString stringWithFormat:@"https://api.flickr.com/services/rest/?method=flickr.photos.search&license=1,2,4,7&has_geo=1&extras=original_format,description,geo,date_upload,owner_name"]];
 }
 
-+ (NSString *)urlStringForPhoto:(NSDictionary *)photo format:(FlickrPhotoFormat)format
++ (NSString *)urlStringForPhoto:(LQTopPlacesPhoto *)photo format:(FlickrPhotoFormat)format
 {
-	id farm = [photo objectForKey:@"farm"];
-	id server = [photo objectForKey:@"server"];
-	id photo_id = [photo objectForKey:@"id"];
-	id secret = [photo objectForKey:@"secret"];
-	if (format == FlickrPhotoFormatOriginal) secret = [photo objectForKey:@"originalsecret"];
+    id farm = photo.farm;
+    id server = photo.server;
+    id photo_id = photo.photoId;
+    id secret = photo.secret;
+    id fileType = photo.fileType;
+    if (format == FlickrPhotoFormatOriginal) secret = photo.originalsecret;
     
-	NSString *fileType = @"jpg";
-	if (format == FlickrPhotoFormatOriginal) fileType = [photo objectForKey:@"originalformat"];
-	
-	if (!farm || !server || !photo_id || !secret) return nil;
-	
-	NSString *formatString = @"s";
-	switch (format) {
-		case FlickrPhotoFormatSquare:    formatString = @"s"; break;
-		case FlickrPhotoFormatLarge:     formatString = @"b"; break;
-		case FlickrPhotoFormatOriginal:  formatString = @"o"; break;
-	}
+    if (!farm || !server || !photo_id || !secret) return nil;
     
-	return [NSString stringWithFormat:@"http://farm%@.static.flickr.com/%@/%@_%@_%@.%@", farm, server, photo_id, secret, formatString, fileType];
+    NSString *formatString = @"s";
+    switch (format) {
+        case FlickrPhotoFormatSquare:
+            formatString = @"s";
+            break;
+        case FlickrPhotoFormatLarge:
+            formatString = @"b";
+            break;
+        case FlickrPhotoFormatOriginal:
+            formatString = @"o";
+            break;
+    }
+    NSString *returnString = [NSString stringWithFormat:@"http://farm%@.static.flickr.com/%@/%@_%@_%@.%@", farm, server, photo_id, secret, formatString, fileType];
+    
+    return returnString;
 }
 
-+ (NSURL *)URLforPhoto:(NSDictionary *)photo format:(FlickrPhotoFormat)format;
++ (NSURL *)URLforPhoto:(LQTopPlacesPhoto *)photo format:(FlickrPhotoFormat)format;
 {
     return [NSURL URLWithString:[self urlStringForPhoto:photo format:format]];
 }

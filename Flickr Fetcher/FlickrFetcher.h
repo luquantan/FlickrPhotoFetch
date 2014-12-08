@@ -6,6 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "LQTopPlacesPhoto.h"
 
 // key paths to photos or places at top-level of Flickr results
 #define FLICKR_RESULTS_PHOTOS @"photos.photo"
@@ -42,7 +43,7 @@ typedef enum {
 
 + (NSURL *)URLforPhotosInPlace:(id)flickrPlaceId maxResults:(int)maxResults;
 
-+ (NSURL *)URLforPhoto:(NSDictionary *)photo format:(FlickrPhotoFormat)format;
++ (NSURL *)URLforPhoto:(LQTopPlacesPhoto *)photo format:(FlickrPhotoFormat)format;
 
 + (NSURL *)URLforRecentGeoreferencedPhotos;
 

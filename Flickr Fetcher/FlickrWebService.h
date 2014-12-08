@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "FlickrFetcher.h"
+#import "LQTopPlacesPhoto.h"
+
 
 @interface FlickrWebService : NSObject
 
@@ -17,4 +20,6 @@
 + (void)getTopPlacesInBackgroundWithCompletion:(void(^)(NSArray *results, NSError *error))completion;
 
 + (void)getTopPlacesWithPlaceId:(NSString *)placeId withMaxResult:(int)maxResult withBackgroundCompletion:(void(^)(NSArray *results, NSError *error))completion;
+
++ (void)getPhoto:(LQTopPlacesPhoto *)photo withFormat:(FlickrPhotoFormat)format withBackgroundCompletion:(void(^)(UIImage *image, NSError *error))completion;
 @end

@@ -10,7 +10,6 @@
 #import "FlickrFetcher.h"
 
 #import "LQTopPlaceModel.h"
-#import "LQTopPlacesPhotos.h"
 
 @implementation FlickrWebService
 + (void)getDataFromQuery:(NSURL *)url withBackgroundCompletion:(void(^)(NSDictionary *dictionary, NSError *error))completionBlock
@@ -27,6 +26,24 @@
         
     }];
     [task resume];
+}
+
++ (void)getPhotoFromQuery:(NSURL *)url withBackgroundCompletion:(void(^)(UIImage *image, NSError *error))completionBlock
+{
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration ephemeralSessionConfiguration];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
+    NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
+        if (!error) {
+            UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:location]];
+            if (completionBlock) completionBlock(image, nil);
+        } else {
+            if (completionBlock) completionBlock(nil, error);
+        }
+        
+    }];
+    [task resume];
+    
 }
 
 + (void)getTopPlacesInBackgroundWithCompletion:(void(^)(NSArray *results, NSError *error))completion
@@ -55,10 +72,10 @@
 {
     [FlickrWebService getDataFromQuery:[FlickrFetcher URLforPhotosInPlace:placeId maxResults:maxResult] withBackgroundCompletion:^(NSDictionary *dictionary, NSError *error) {
         if (dictionary) {
-            NSDictionary *photoDict = [dictionary valueForKeyPath:FLICKR_RESULTS_PHOTOS];
+            NSArray *photoDicts = [dictionary valueForKeyPath:FLICKR_RESULTS_PHOTOS];
             NSMutableArray *photos = [[NSMutableArray alloc] init];
-            for (NSDictionary *photoInfo in photoDict) {
-                LQTopPlacesPhotos *model = [[LQTopPlacesPhotos alloc] initWithDictionary:photoInfo];
+            for (NSDictionary *photoInfo in photoDicts) {
+                LQTopPlacesPhoto *model = [[LQTopPlacesPhoto alloc] initWithDictionary:photoInfo];
                 [photos addObject:model];
             }
     
@@ -71,6 +88,23 @@
                 if (completion) completion(nil, error);
             });
         }
+    }];
+}
+
++ (void)getPhoto:(LQTopPlacesPhoto *)photo withFormat:(FlickrPhotoFormat)format withBackgroundCompletion:(void(^)(UIImage *image, NSError *error))completion
+{
+    
+    [FlickrWebService getPhotoFromQuery:[FlickrFetcher URLforPhoto:photo format:format] withBackgroundCompletion:^(UIImage *image, NSError *error) {
+        if (!error && image) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (completion) completion(image, nil);
+            });
+        } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (completion) completion(nil, error);
+            });
+        }
+        
     }];
 }
 
