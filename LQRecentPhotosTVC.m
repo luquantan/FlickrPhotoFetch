@@ -9,6 +9,7 @@
 #import "LQRecentPhotosTVC.h"
 #import "LQApplicationSettings.h"
 #import "LQTopPlacesPhoto.h"
+#import "ImageViewController.h"
 
 static NSString * const LQRecentPhotosTVCCellReuseIdentifier = @"LQRecentPhotosTVC Cell";
 
@@ -25,6 +26,7 @@ static NSString * const LQRecentPhotosTVCCellReuseIdentifier = @"LQRecentPhotosT
 - (void)viewWillAppear:(BOOL)animated
 {
     [self recentPhotos];
+    [self.tableView reloadData];
 }
 - (NSArray *)recentPhotos
 {
@@ -50,6 +52,19 @@ static NSString * const LQRecentPhotosTVCCellReuseIdentifier = @"LQRecentPhotosT
     LQTopPlacesPhoto *photo = self.recentPhotos[indexPath.row];
     cell.textLabel.text = [photo tableViewDescriptionForPhoto];
     return cell;
+}
+
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.destinationViewController isKindOfClass:[ImageViewController class]]) {
+        if ([sender isKindOfClass:[UITableViewCell class]]) {
+            NSIndexPath *index = [self.tableView indexPathForCell:sender];
+            ImageViewController *ivc = segue.destinationViewController;
+            ivc.photo = self.recentPhotos[index.row];
+        }
+    }
 }
 
 
@@ -87,14 +102,5 @@ static NSString * const LQRecentPhotosTVCCellReuseIdentifier = @"LQRecentPhotosT
 }
 */
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

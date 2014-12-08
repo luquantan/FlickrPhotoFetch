@@ -31,6 +31,16 @@ static NSInteger const LQApplicationSettingsMaxNumberOfRecentPhotos = 50;
     [self saveRecentPhotos:[self validifyRecentPhotosToSave:recentPhotos]];
 }
 
++ (instancetype)sharedSettings
+{
+    static LQApplicationSettings *settings = nil;
+    static dispatch_once_t singleToken;
+    dispatch_once(&singleToken, ^{
+        settings = [[self alloc] init];
+    });
+    return settings;
+}
+
 - (NSArray *)validifyRecentPhotosToSave:(NSArray *)photos
 {
     NSMutableOrderedSet *set = [[NSMutableOrderedSet alloc] initWithArray:photos];
@@ -40,16 +50,6 @@ static NSInteger const LQApplicationSettingsMaxNumberOfRecentPhotos = 50;
     }
     NSArray *returnArray = [set array];
     return returnArray;
-}
-
-+ (instancetype)sharedSettings
-{
-    static LQApplicationSettings *settings = nil;
-    static dispatch_once_t singleToken;
-    dispatch_once(&singleToken, ^{
-        settings = [[self alloc] init];
-    });
-    return settings;
 }
 
 - (void)saveRecentPhotos:(NSArray *)photos
