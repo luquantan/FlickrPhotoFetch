@@ -68,8 +68,8 @@ static NSString * const LQTopPlacePhotosTVCCellReuseIdentifier = @"TopPlacesPhot
     if ([detail isKindOfClass:[ImageViewController class]]) {
         ImageViewController *detailVC = (ImageViewController *)detail;
         detailVC.photo = self.arrayOfPhotoInfo[indexPath.row];
+        [self savePhoto:self.arrayOfPhotoInfo[indexPath.row]];
     }
-    
 }
 
 #pragma mark - Navigation 
@@ -80,14 +80,17 @@ static NSString * const LQTopPlacePhotosTVCCellReuseIdentifier = @"TopPlacesPhot
         ImageViewController *ivc = segue.destinationViewController;
         if ([sender isKindOfClass:[UITableViewCell class]]) sender = (UITableViewCell *)sender;
         NSIndexPath *index = [self.tableView indexPathForCell:sender];
-        
-        NSMutableArray *recentPhotos = [[LQApplicationSettings sharedSettings].recentPhotos mutableCopy];
-        [recentPhotos insertObject:self.arrayOfPhotoInfo[index.row] atIndex:0];
-        [LQApplicationSettings sharedSettings].recentPhotos = recentPhotos;
-
+        [self savePhoto:self.arrayOfPhotoInfo[index.row]];
         ivc.photo = self.arrayOfPhotoInfo[index.row];
     }
 }
 
+#pragma mark - Saving Photos
+- (void)savePhoto:(LQTopPlacesPhoto *)photo
+{
+    NSMutableArray *recentPhotos = [[LQApplicationSettings sharedSettings].recentPhotos mutableCopy];
+    [recentPhotos insertObject:photo atIndex:0];
+    [LQApplicationSettings sharedSettings].recentPhotos = recentPhotos;
+}
 
 @end

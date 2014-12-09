@@ -83,6 +83,7 @@
 {
     [super viewDidLoad];
     [self.scrollView addSubview:self.imageView];
+    self.activityIndicator.hidesWhenStopped = YES;
 }
 
 
