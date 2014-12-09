@@ -60,8 +60,19 @@ static NSString * const LQTopPlacePhotosTVCCellReuseIdentifier = @"TopPlacesPhot
     return cell;
 }
 
-#pragma mark - Navigation
+#pragma mark - UITableViewDelegate
+//Send didSelectRowAtIndex to DetailViewController
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    id detail = self.splitViewController.viewControllers[1];
+    if ([detail isKindOfClass:[ImageViewController class]]) {
+        ImageViewController *detailVC = (ImageViewController *)detail;
+        detailVC.photo = self.arrayOfPhotoInfo[indexPath.row];
+    }
+    
+}
 
+#pragma mark - Navigation 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
