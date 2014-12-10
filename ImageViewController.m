@@ -85,9 +85,19 @@
     [super viewDidLoad];
     [self.scrollView addSubview:self.imageView];
     self.activityIndicator.hidesWhenStopped = YES;
+    
+    NSString *notificationName = @"selectedPhotoInRowNotification";
 
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(useNotificationWithObject:) name:notificationName object:nil];
 }
 
+- (void)useNotificationWithObject:(NSNotification *)notification
+{
+    NSString *key = @"photoSelected";
+    NSDictionary *dictionary = [notification userInfo];
+    LQTopPlacesPhoto *photo = [dictionary valueForKey:key];
+    self.photo = photo;
+}
 #pragma mark - UISplitViewControllerDelegate
 
 -(void)awakeFromNib

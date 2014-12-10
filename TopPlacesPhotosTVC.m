@@ -33,12 +33,6 @@ static NSString * const LQTopPlacePhotosTVCCellReuseIdentifier = @"TopPlacesPhot
             NSLog(@"%@", error);
         }
     }];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 #pragma mark - UITableViewDataSource
@@ -63,13 +57,16 @@ static NSString * const LQTopPlacePhotosTVCCellReuseIdentifier = @"TopPlacesPhot
 //Send didSelectRowAtIndex to DetailViewController
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UINavigationController *navigationDetail = self.splitViewController.viewControllers.lastObject;
-    id detail = navigationDetail.visibleViewController;
-    if ([detail isKindOfClass:[ImageViewController class]]) {
-        ImageViewController *detailVC = (ImageViewController *)detail;
-        detailVC.photo = self.arrayOfPhotoInfo[indexPath.row];
+        [self postNotificationWithObject:self.arrayOfPhotoInfo[indexPath.row]];
         [self savePhoto:self.arrayOfPhotoInfo[indexPath.row]];
-    }
+}
+
+- (void)postNotificationWithObject:(LQTopPlacesPhoto *)photo
+{
+    NSString *notificationName = @"selectedPhotoInRowNotification";
+    NSString *key = @"photoSelected";
+    NSDictionary *dictionary = [NSDictionary dictionaryWithObject:photo forKey:key];
+    [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil userInfo:dictionary];
 }
 
 #pragma mark - Navigation 

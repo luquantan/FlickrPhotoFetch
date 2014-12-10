@@ -8,8 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+
 @interface TopPlacesPhotosTVC : UITableViewController
-
 @property (nonatomic, strong) NSString *topPlacesPlaceId;
-
 @end
