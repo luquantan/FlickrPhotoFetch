@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="f3s-Ot-8SL">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
     </dependencies>
     <scenes>
@@ -15,13 +16,13 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="Wmg-cr-QYf" kind="relationship" relationship="viewControllers" id="0ps-ba-eAL"/>
                         <segue destination="TJg-Up-BC9" kind="relationship" relationship="viewControllers" id="7e7-0y-jWD"/>
+                        <segue destination="Wmg-cr-QYf" kind="relationship" relationship="viewControllers" id="XYM-hE-BKL"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XJg-hd-SnO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-478" y="317"/>
+            <point key="canvasLocation" x="-842" y="-31"/>
         </scene>
         <!--Top Places-->
         <scene sceneID="vId-QP-fbj">
@@ -30,7 +31,7 @@
                     <tabBarItem key="tabBarItem" title="Top Places" id="n2h-U7-LvF"/>
                     <connections>
                         <segue destination="dDm-Sq-kcs" kind="relationship" relationship="masterViewController" id="ruI-RZ-Wdn"/>
-                        <segue destination="Zrd-iT-7Dz" kind="relationship" relationship="detailViewController" id="PPi-gx-iGB"/>
+                        <segue destination="pey-yW-27M" kind="relationship" relationship="detailViewController" id="v0Q-Zh-pQa"/>
                     </connections>
                 </splitViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SOu-u3-x9R" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -49,7 +50,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mEv-6z-ScZ">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mEv-6z-ScZ">
                                 <rect key="frame" x="0.0" y="64" width="768" height="916"/>
                             </scrollView>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="bnu-jZ-OhJ">
@@ -66,7 +67,9 @@
                             <constraint firstItem="mEv-6z-ScZ" firstAttribute="leading" secondItem="O5Z-PD-4c7" secondAttribute="leading" id="jdN-UN-y61"/>
                         </constraints>
                     </view>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" id="IzM-lN-qQc"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="activityIndicator" destination="bnu-jZ-OhJ" id="vfP-0u-VRE"/>
                         <outlet property="scrollView" destination="mEv-6z-ScZ" id="rS7-vF-T45"/>
@@ -74,12 +77,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dqt-bP-eyi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2163" y="303"/>
+            <point key="canvasLocation" x="2959" y="95"/>
         </scene>
-        <!--TopPlaces Navigation Controller-->
+        <!--TopPlaces -->
         <scene sceneID="YLf-h5-JFx">
             <objects>
-                <navigationController title="TopPlaces Navigation Controller" automaticallyAdjustsScrollViewInsets="NO" id="dDm-Sq-kcs" sceneMemberID="viewController">
+                <navigationController title="TopPlaces " automaticallyAdjustsScrollViewInsets="NO" id="dDm-Sq-kcs" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Top Places" id="Q1U-xO-QrG"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="BaU-cV-8Da">
@@ -93,7 +96,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tQW-L5-pNz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1115" y="1359"/>
+            <point key="canvasLocation" x="881" y="2003"/>
         </scene>
         <!--Top Places-->
         <scene sceneID="4zo-yS-Bte">
@@ -131,7 +134,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ApH-JY-IFP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1485" y="1359"/>
+            <point key="canvasLocation" x="1251" y="2003"/>
         </scene>
         <!--RecentPhotos Navigation Controller-->
         <scene sceneID="UT2-cP-c7C">
@@ -150,7 +153,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DcY-ig-Gdj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="464" y="-304"/>
+            <point key="canvasLocation" x="540" y="-828"/>
         </scene>
         <!--Recent PhotosTVC-->
         <scene sceneID="Pi7-6F-D04">
@@ -167,7 +170,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="Zrd-iT-7Dz" kind="push" id="nod-Hj-2vg"/>
+                                    <segue destination="Zrd-iT-7Dz" kind="push" id="ZAc-R9-dQD"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -180,7 +183,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fvo-bh-zga" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1277" y="-304"/>
+            <point key="canvasLocation" x="1353" y="-828"/>
         </scene>
         <!--Top 50 Photos-->
         <scene sceneID="SNh-zx-Kls">
@@ -196,7 +199,7 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5kO-6H-rFX" id="zWX-MF-efy">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Print" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wzk-wa-Yiv">
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wzk-wa-Yiv">
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -217,7 +220,23 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rM7-BV-16L" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1859" y="1359"/>
+            <point key="canvasLocation" x="1625" y="2003"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="ZhV-47-y0T">
+            <objects>
+                <navigationController id="pey-yW-27M" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="jlw-kA-Ihx">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Zrd-iT-7Dz" kind="relationship" relationship="rootViewController" id="Ocr-Yx-OGc"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="imj-qw-bhR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1443" y="782"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
@@ -226,6 +245,6 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="nod-Hj-2vg"/>
+        <segue reference="Ocr-Yx-OGc"/>
     </inferredMetricsTieBreakers>
 </document>
