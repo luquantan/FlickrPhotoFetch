@@ -19,6 +19,7 @@
 @end
 
 @implementation ImageViewController
+
 - (void)setScrollView:(UIScrollView *)scrollView
 {
     _scrollView = scrollView;
@@ -84,6 +85,7 @@
     [super viewDidLoad];
     [self.scrollView addSubview:self.imageView];
     self.activityIndicator.hidesWhenStopped = YES;
+
 }
 
 #pragma mark - UISplitViewControllerDelegate

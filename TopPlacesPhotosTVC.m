@@ -15,7 +15,6 @@
 static int const LQMaxNumberOfResultsToDisplay = 50;
 static NSString * const LQTopPlacePhotosTVCCellReuseIdentifier = @"TopPlacesPhotosTVC Cell";
 
-
 @interface TopPlacesPhotosTVC ()
 @property (nonatomic, strong) NSArray *arrayOfPhotoInfo;
 @property (nonatomic, strong) NSArray *photoDicts;
@@ -64,7 +63,8 @@ static NSString * const LQTopPlacePhotosTVCCellReuseIdentifier = @"TopPlacesPhot
 //Send didSelectRowAtIndex to DetailViewController
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    id detail = self.splitViewController.viewControllers[1];
+    UINavigationController *navigationDetail = self.splitViewController.viewControllers.lastObject;
+    id detail = navigationDetail.visibleViewController;
     if ([detail isKindOfClass:[ImageViewController class]]) {
         ImageViewController *detailVC = (ImageViewController *)detail;
         detailVC.photo = self.arrayOfPhotoInfo[indexPath.row];
