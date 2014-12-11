@@ -11,6 +11,9 @@
 #import "FlickrWebService.h"
 #import "LQTopPlacesPhoto.h"
 
+static NSString * const LQSelectedPhotoNotificationName = @"selectedPhotoInRowNotificationName";
+static NSString * const LQSelectedPhotoNotificationKey = @"selectedPhotoInRowNotificationKey";
+
 @interface ImageViewController () <UIScrollViewDelegate, UISplitViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
@@ -69,8 +72,6 @@
 - (void)setImage:(UIImage *)image
 {
     self.imageView.image = image;
-    
-    
     if (image) {
         CGSize sizeThatFits = [image sizeThatFits:self.scrollView.bounds.size];
         self.imageView.frame = CGRectMake(0, 0, sizeThatFits.width, sizeThatFits.height);
@@ -85,19 +86,16 @@
     [super viewDidLoad];
     [self.scrollView addSubview:self.imageView];
     self.activityIndicator.hidesWhenStopped = YES;
-    
-    NSString *notificationName = @"selectedPhotoInRowNotification";
-
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(useNotificationWithObject:) name:notificationName object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(useNotificationWithObject:) name:LQSelectedPhotoNotificationName object:nil];
 }
 
 - (void)useNotificationWithObject:(NSNotification *)notification
 {
-    NSString *key = @"photoSelected";
     NSDictionary *dictionary = [notification userInfo];
-    LQTopPlacesPhoto *photo = [dictionary valueForKey:key];
+    LQTopPlacesPhoto *photo = [dictionary valueForKey:LQSelectedPhotoNotificationKey];
     self.photo = photo;
 }
+
 #pragma mark - UISplitViewControllerDelegate
 
 -(void)awakeFromNib

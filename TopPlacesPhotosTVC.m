@@ -14,6 +14,8 @@
 
 static int const LQMaxNumberOfResultsToDisplay = 50;
 static NSString * const LQTopPlacePhotosTVCCellReuseIdentifier = @"TopPlacesPhotosTVC Cell";
+static NSString * const LQSelectedPhotoNotificationName = @"selectedPhotoInRowNotificationName";
+static NSString * const LQSelectedPhotoNotificationKey = @"selectedPhotoInRowNotificationKey";
 
 @interface TopPlacesPhotosTVC ()
 @property (nonatomic, strong) NSArray *arrayOfPhotoInfo;
@@ -63,10 +65,8 @@ static NSString * const LQTopPlacePhotosTVCCellReuseIdentifier = @"TopPlacesPhot
 
 - (void)postNotificationWithObject:(LQTopPlacesPhoto *)photo
 {
-    NSString *notificationName = @"selectedPhotoInRowNotification";
-    NSString *key = @"photoSelected";
-    NSDictionary *dictionary = [NSDictionary dictionaryWithObject:photo forKey:key];
-    [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil userInfo:dictionary];
+    NSDictionary *dictionary = [NSDictionary dictionaryWithObject:photo forKey:LQSelectedPhotoNotificationKey];
+    [[NSNotificationCenter defaultCenter] postNotificationName:LQSelectedPhotoNotificationName object:nil userInfo:dictionary];
 }
 
 #pragma mark - Navigation 

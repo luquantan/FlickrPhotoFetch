@@ -19,6 +19,7 @@
 		D94E0B971A33A1EE0006EFDC /* LQRecentPhotosTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D94E0B961A33A1EE0006EFDC /* LQRecentPhotosTVC.m */; };
 		D94E0B9D1A3659810006EFDC /* iPadStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D94E0B9C1A3659810006EFDC /* iPadStoryboard.storyboard */; };
 		D94E0BA01A3669AC0006EFDC /* TopPlacesSpiltVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D94E0B9F1A3669AC0006EFDC /* TopPlacesSpiltVC.m */; };
+		D94E0BA41A39E8EA0006EFDC /* Images-2.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D94E0BA31A39E8EA0006EFDC /* Images-2.xcassets */; };
 		D98351EF1A2F5E140077CF80 /* LQTopPlaceTableViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = D98351EE1A2F5E140077CF80 /* LQTopPlaceTableViewSection.m */; };
 		D98351F21A2F76930077CF80 /* TopPlacesPhotosTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D98351F11A2F76930077CF80 /* TopPlacesPhotosTVC.m */; };
 		D98351F51A2F9F210077CF80 /* LQTopPlacesPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = D98351F41A2F9F210077CF80 /* LQTopPlacesPhoto.m */; };
@@ -63,6 +64,7 @@
 		D94E0B9C1A3659810006EFDC /* iPadStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = iPadStoryboard.storyboard; path = ../iPadStoryboard.storyboard; sourceTree = "<group>"; };
 		D94E0B9E1A3669AC0006EFDC /* TopPlacesSpiltVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopPlacesSpiltVC.h; sourceTree = "<group>"; };
 		D94E0B9F1A3669AC0006EFDC /* TopPlacesSpiltVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopPlacesSpiltVC.m; sourceTree = "<group>"; };
+		D94E0BA31A39E8EA0006EFDC /* Images-2.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Images-2.xcassets"; sourceTree = "<group>"; };
 		D98351ED1A2F5E140077CF80 /* LQTopPlaceTableViewSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LQTopPlaceTableViewSection.h; sourceTree = "<group>"; };
 		D98351EE1A2F5E140077CF80 /* LQTopPlaceTableViewSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LQTopPlaceTableViewSection.m; sourceTree = "<group>"; };
 		D98351F01A2F76930077CF80 /* TopPlacesPhotosTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopPlacesPhotosTVC.h; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 				D94E0B9C1A3659810006EFDC /* iPadStoryboard.storyboard */,
 				09035F581A2A6164002021AE /* Images.xcassets */,
 				09035F5A1A2A6164002021AE /* LaunchScreen.xib */,
+				D94E0BA31A39E8EA0006EFDC /* Images-2.xcassets */,
 				09035F4B1A2A6164002021AE /* Supporting Files */,
 			);
 			path = FlickrPhotoFetch;
@@ -325,6 +328,7 @@
 				09035F571A2A6164002021AE /* Main.storyboard in Resources */,
 				09035F5C1A2A6164002021AE /* LaunchScreen.xib in Resources */,
 				09035F591A2A6164002021AE /* Images.xcassets in Resources */,
+				D94E0BA41A39E8EA0006EFDC /* Images-2.xcassets in Resources */,
 				D94E0B9D1A3659810006EFDC /* iPadStoryboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -481,6 +485,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = FlickrPhotoFetch/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -493,6 +498,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = FlickrPhotoFetch/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

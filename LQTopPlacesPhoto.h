@@ -20,5 +20,4 @@
 - (NSString *)tableViewDescriptionForPhoto;
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 
-
 @end

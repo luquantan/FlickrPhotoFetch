@@ -20,7 +20,6 @@ static NSString * const LQTopPlacesPhotoFileTypeKey = @"originalformat";
 @interface LQTopPlacesPhoto()
 @property (nonatomic, strong) NSString *photoTitle;
 @property (nonatomic, strong) NSString *photoDescription;
-
 @end
 
 @implementation LQTopPlacesPhoto
