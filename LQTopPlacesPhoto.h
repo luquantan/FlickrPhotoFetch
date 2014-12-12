@@ -10,12 +10,12 @@
 
 @interface LQTopPlacesPhoto : NSObject
 
-@property (nonatomic, strong) NSString *farm;
-@property (nonatomic, strong) NSString *server;
-@property (nonatomic, strong) NSString *photoId;
-@property (nonatomic, strong) NSString *secret;
-@property (nonatomic, strong) NSString *originalsecret;
-@property (nonatomic, strong) NSString *fileType;
+@property (nonatomic, strong) id farm;
+@property (nonatomic, strong) id server;
+@property (nonatomic, strong) id photoId;
+@property (nonatomic, strong) id secret;
+@property (nonatomic, strong) id originalsecret;
+@property (nonatomic, strong) id fileType;
 
 - (NSString *)tableViewDescriptionForPhoto;
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;

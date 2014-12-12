@@ -69,6 +69,7 @@
 {
     self.imageView.image = image;
     
+    
     if (image) {
         CGSize sizeThatFits = [image sizeThatFits:self.scrollView.bounds.size];
         self.imageView.frame = CGRectMake(0, 0, sizeThatFits.width, sizeThatFits.height);
