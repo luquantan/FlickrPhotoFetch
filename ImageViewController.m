@@ -86,11 +86,23 @@ static NSString * const LQSelectedPhotoNotificationKey = @"selectedPhotoInRowNot
     [super viewDidLoad];
     [self.scrollView addSubview:self.imageView];
     self.activityIndicator.hidesWhenStopped = YES;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(useNotificationWithObject:) name:LQSelectedPhotoNotificationName object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)useNotificationWithObject:(NSNotification *)notification
 {
+    self.imageView.image = nil;
     NSDictionary *dictionary = [notification userInfo];
     LQTopPlacesPhoto *photo = [dictionary valueForKey:LQSelectedPhotoNotificationKey];
     self.photo = photo;

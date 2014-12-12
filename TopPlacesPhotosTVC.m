@@ -38,6 +38,7 @@ static NSString * const LQSelectedPhotoNotificationKey = @"selectedPhotoInRowNot
 }
 
 #pragma mark - UITableViewDataSource
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
