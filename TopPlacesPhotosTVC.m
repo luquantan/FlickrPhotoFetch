@@ -14,7 +14,8 @@
 
 static int const LQMaxNumberOfResultsToDisplay = 50;
 static NSString * const LQTopPlacePhotosTVCCellReuseIdentifier = @"TopPlacesPhotosTVC Cell";
-
+static NSString * const LQSelectedPhotoNotificationName = @"selectedPhotoInRowNotificationName";
+static NSString * const LQSelectedPhotoNotificationKey = @"selectedPhotoInRowNotificationKey";
 
 @interface TopPlacesPhotosTVC ()
 @property (nonatomic, strong) NSArray *arrayOfPhotoInfo;
@@ -34,15 +35,10 @@ static NSString * const LQTopPlacePhotosTVCCellReuseIdentifier = @"TopPlacesPhot
             NSLog(@"%@", error);
         }
     }];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 #pragma mark - UITableViewDataSource
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
@@ -60,8 +56,21 @@ static NSString * const LQTopPlacePhotosTVCCellReuseIdentifier = @"TopPlacesPhot
     return cell;
 }
 
-#pragma mark - Navigation
+#pragma mark - UITableViewDelegate
+//Send didSelectRowAtIndex to DetailViewController
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+        [self postNotificationWithObject:self.arrayOfPhotoInfo[indexPath.row]];
+        [self savePhoto:self.arrayOfPhotoInfo[indexPath.row]];
+}
 
+- (void)postNotificationWithObject:(LQTopPlacesPhoto *)photo
+{
+    NSDictionary *dictionary = [NSDictionary dictionaryWithObject:photo forKey:LQSelectedPhotoNotificationKey];
+    [[NSNotificationCenter defaultCenter] postNotificationName:LQSelectedPhotoNotificationName object:nil userInfo:dictionary];
+}
+
+#pragma mark - Navigation 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -69,13 +78,17 @@ static NSString * const LQTopPlacePhotosTVCCellReuseIdentifier = @"TopPlacesPhot
         ImageViewController *ivc = segue.destinationViewController;
         if ([sender isKindOfClass:[UITableViewCell class]]) sender = (UITableViewCell *)sender;
         NSIndexPath *index = [self.tableView indexPathForCell:sender];
+        [self savePhoto:self.arrayOfPhotoInfo[index.row]];
         ivc.photo = self.arrayOfPhotoInfo[index.row];
-        
-        NSMutableArray *recentPhotos = [[LQApplicationSettings sharedSettings].recentPhotos mutableCopy];
-        [recentPhotos insertObject:self.arrayOfPhotoInfo[index.row] atIndex:0];
-        [LQApplicationSettings sharedSettings].recentPhotos = recentPhotos;
     }
 }
 
+#pragma mark - Saving Photos
+- (void)savePhoto:(LQTopPlacesPhoto *)photo
+{
+    NSMutableArray *recentPhotos = [[LQApplicationSettings sharedSettings].recentPhotos mutableCopy];
+    [recentPhotos insertObject:photo atIndex:0];
+    [LQApplicationSettings sharedSettings].recentPhotos = recentPhotos;
+}
 
 @end

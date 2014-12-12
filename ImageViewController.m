@@ -11,7 +11,10 @@
 #import "FlickrWebService.h"
 #import "LQTopPlacesPhoto.h"
 
-@interface ImageViewController () <UIScrollViewDelegate>
+static NSString * const LQSelectedPhotoNotificationName = @"selectedPhotoInRowNotificationName";
+static NSString * const LQSelectedPhotoNotificationKey = @"selectedPhotoInRowNotificationKey";
+
+@interface ImageViewController () <UIScrollViewDelegate, UISplitViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (nonatomic,strong) UIImageView *imageView;
@@ -19,6 +22,7 @@
 @end
 
 @implementation ImageViewController
+
 - (void)setScrollView:(UIScrollView *)scrollView
 {
     _scrollView = scrollView;
@@ -68,8 +72,6 @@
 - (void)setImage:(UIImage *)image
 {
     self.imageView.image = image;
-    
-    
     if (image) {
         CGSize sizeThatFits = [image sizeThatFits:self.scrollView.bounds.size];
         self.imageView.frame = CGRectMake(0, 0, sizeThatFits.width, sizeThatFits.height);
@@ -83,7 +85,49 @@
 {
     [super viewDidLoad];
     [self.scrollView addSubview:self.imageView];
+    self.activityIndicator.hidesWhenStopped = YES;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(useNotificationWithObject:) name:LQSelectedPhotoNotificationName object:nil];
+}
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)useNotificationWithObject:(NSNotification *)notification
+{
+    self.imageView.image = nil;
+    NSDictionary *dictionary = [notification userInfo];
+    LQTopPlacesPhoto *photo = [dictionary valueForKey:LQSelectedPhotoNotificationKey];
+    self.photo = photo;
+}
+
+#pragma mark - UISplitViewControllerDelegate
+
+-(void)awakeFromNib
+{
+    self.splitViewController.delegate = self;
+}
+
+- (BOOL)splitViewController:(UISplitViewController *)svc shouldHideViewController:(UIViewController *)vc inOrientation:(UIInterfaceOrientation)orientation
+{
+    return UIInterfaceOrientationIsPortrait(orientation);
+}
+
+- (void)splitViewController:(UISplitViewController *)svc willHideViewController:(UIViewController *)aViewController withBarButtonItem:(UIBarButtonItem *)barButtonItem forPopoverController:(UIPopoverController *)pc
+{
+    barButtonItem.title = aViewController.title;
+    self.navigationItem.leftBarButtonItem = barButtonItem;
+}
+
+- (void)splitViewController:(UISplitViewController *)svc willShowViewController:(UIViewController *)aViewController invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem
+{
+    self.navigationItem.leftBarButtonItem = nil;
+}
 @end
